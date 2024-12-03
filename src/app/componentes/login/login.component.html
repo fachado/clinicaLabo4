@@ -1,0 +1,64 @@
+<div class="container d-flex flex-column align-items-center" style="min-height: 100vh;">
+  <!-- Botones de Acceso Rápido -->
+  <div class="d-flex justify-content-between mb-3">
+    <button (click)="rellenarCuentaAdmin()" class="btn access-button">
+      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/admin%2Fignaciofachado13%40gmail.com%2Fadmin.jpg?alt=media&token=0042c324-0441-4667-8afd-a34d3957707e" alt="Admin" />
+    </button>
+    <button (click)="paciente1()" class="btn access-button">
+      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/paciente%2Fdebedam921%40nozamas.com%2Fpaciente1.jpg?alt=media&token=282e834f-c39a-4ba3-803e-8eb0fcab099c" alt="Paciente 1" />
+    </button>
+    <button (click)="paciente2()" class="btn access-button">
+      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/paciente%2Frajaw82464%40merotx.com%2Fpaciente2.jpeg?alt=media&token=5e41a9a0-500e-4a2a-a998-5e935e73fbe0" alt="Paciente 2" />
+    </button>
+    <button (click)="paciente3()" class="btn access-button">
+      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/paciente%2Fberixav694%40merotx.com%2Fpaciente3.jpg?alt=media&token=6eee3660-1daa-49a9-8a7e-bdaaa95b5ddc" alt="Paciente 3" />
+    </button>
+    <button (click)="especialista1()" class="btn access-button">
+      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/especialista%2Fsevojax480%40kimasoft.com%2Fespecialista1.jpg?alt=media&token=e72b8b9b-c492-4e97-9e93-8ca20f802b77" alt="Especialista 1" />
+    </button>
+    <button (click)="especialista2()" class="btn access-button">
+      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/especialista%2Fvejajey550%40merotx.com%2Fespecialista2.jpg?alt=media&token=26f87ace-8b4b-4ab4-925c-2232004e4b2d" alt="Especialista 2" />
+    </button>
+  </div>
+
+  <!-- Tarjeta de inicio de sesión -->
+  <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
+      <form *ngIf="!isLoading" (ngSubmit)="onLogin()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            id="email"
+            class="form-control"
+            placeholder="Correo electrónico"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            id="password"
+            class="form-control"
+            placeholder="Contraseña"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+      </form>
+
+      <!-- Spinner de carga -->
+      <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

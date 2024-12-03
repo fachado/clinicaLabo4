@@ -1,0 +1,50 @@
+<div class="container-fluid min-vh-100">
+  <div class="d-flex justify-content-center gap-3 flex-wrap">
+    <div *ngFor="let pacienteConTurnos of pacientesConTurnos" class="text-center">
+      <button
+        class="btn p-0"
+        (click)="toggleTurnos(pacienteConTurnos)"
+        *ngIf="tieneTurnosFinalizados(pacienteConTurnos)"
+      >
+        <img
+          [src]="pacienteConTurnos.paciente.imagenes"
+          alt="Imagen paciente"
+          class="rounded-circle"
+          style="width: 120px; height: 120px; object-fit: cover;"
+        />
+      </button>
+      <h5 class="mt-2 text-dark" *ngIf="tieneTurnosFinalizados(pacienteConTurnos)">
+        {{ pacienteConTurnos.paciente.nombre }}
+      </h5>
+
+      <div *ngIf="pacienteConTurnos.mostrarTurnos" class="card-body">
+        <div *ngFor="let turno of pacienteConTurnos.turnos">
+          <div
+            class="card shadow-sm mb-3"
+            *ngIf="turno.estado === 'Finalizado'"
+            [appUsuarioestilo]="turno.especialidad">
+
+            >
+            <div class="card-body">
+              <p><strong>Especialidad:</strong> {{ turno.especialidad }}</p>
+              <p><strong>Especialista:</strong> {{ turno.especialista }}</p>
+              <p><strong>Fecha:</strong> {{ turno.horario.fecha }}</p>
+              <p><strong>Hora:</strong> {{ turno.horario.horaInicio }} - {{ turno.horario.horaFin }}</p>
+              <p><strong>Estado:</strong> {{ turno.estado }}</p>
+
+              <div class="d-flex justify-content-between gap-3 mt-3">
+                <button class="btn btn-info btn-sm" (click)="verResena(turno.id)">Ver Reseña</button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  (click)="verHistoriaClinica(turno.id)"
+                >
+                  Ver Historia Clínica
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

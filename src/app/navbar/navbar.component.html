@@ -1,0 +1,87 @@
+<!-- Navbar Component (app.component.html) -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" [@slideInOut]>
+  <div class="container">
+    <!-- Logo y Nombre de la Clínica -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/pngwing.com.png?alt=media&token=ebc82d77-0546-412e-876e-12897ee267fc" alt="Logo de Trafalgar" width="40" height="40" class="me-2">
+      <span class="fw-bold text-dark">Trafalgar</span>
+    </a>
+
+    <!-- Botón para Mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Enlaces de Navegación -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Inicio</a>
+        </li>
+        <div *ngIf="isAdmin()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/turnos">Turnos</a>
+          </li>
+        </div>
+   
+        <div *ngIf="isAdmin()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/usuarios">usuarios</a>
+          </li>
+        </div>
+
+        <div >
+          <li class="nav-item" *ngIf="isAdmin() || esPaciente() ">
+            <a class="nav-link" routerLink="/solicitarTurno">Solicitar un turno</a>
+          </li>
+        </div> 
+        <div >
+          <li class="nav-item " *ngIf="isEspecialista() ||esPaciente()">
+            <a class="nav-link" routerLink="/misTurnos">Mis turnos</a>
+          </li>
+        </div>
+        <div *ngIf="isEspecialista()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/pacientes">Pacientes</a>
+          </li>
+        </div>
+        <div *ngIf="isAdmin()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/informes">Informes</a>
+          </li>
+        </div>
+      </ul>
+
+
+      <!-- Información de usuario si está logueado -->
+     <!-- Información de usuario si está logueado -->
+<ng-container *ngIf="isLoggedIn; else loggedOut">
+  <div class="d-flex align-items-center justify-content-end ms-auto gap-3">
+    <!-- Saludo al usuario con color dinámico según rol -->
+    <span class="fw-bold" [ngClass]="usuario.userType | userRoleColor">Bienvenido, {{ usuario.nombre }}!</span>
+
+    <!-- Botón de Mi Perfil -->
+    <a class="btn btn-outline-primary btn-sm d-flex align-items-center" routerLink="/perfil">
+      <fa-icon [icon]="faUser" class="me-2"></fa-icon> Mi Perfil
+    </a>
+
+    <!-- Botón de Salir -->
+    <a (click)="logout()" class="btn btn-outline-danger btn-sm d-flex align-items-center">
+      <fa-icon [icon]="faSignOutAlt" class="me-2"></fa-icon> Salir
+    </a>
+  </div>
+</ng-container>
+
+      
+      
+      <!-- Enlaces de autenticación si no está logueado -->
+      <ng-template #loggedOut>
+        <div class="d-flex ms-auto">
+          <a class="btn btn-outline-primary btn-sm me-2" routerLink="/login">Iniciar Sesión</a>
+          <a class="btn btn-primary btn-sm" routerLink="/registro">Registrarse</a>
+        </div>
+      </ng-template>
+      
+    </div>
+  </div>
+</nav>

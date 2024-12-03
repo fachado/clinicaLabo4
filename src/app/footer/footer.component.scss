@@ -1,0 +1,63 @@
+
+  
+  footer {
+    
+    background-color: rgb(149, 217, 253);
+    color: #333;
+    height: 100%;
+    padding: 20px 0;
+    opacity: 0.8;
+    min-height: 100%;
+    margin-bottom: 0;
+  }
+  
+  footer h4 {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  footer p {
+    font-size: 0.9rem;
+  }
+  
+  footer ul {
+    padding-left: 0;
+  }
+  
+  footer ul li {
+    font-size: 0.875rem;
+  }
+  
+  footer .btn {
+    border-radius: 25px;
+    padding: 8px 15px;
+    font-size: 1.1rem;
+    background-color: transparent;
+    border: 1px solid #333;
+  }
+  
+  footer .btn:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  footer hr {
+    border-color: #333;
+  }
+  
+  footer .text-center p {
+    font-size: 0.875rem;
+  }
+  
+  footer .text-md-end {
+    text-align: end;
+  }
+  
+  footer .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    
+  }
+  

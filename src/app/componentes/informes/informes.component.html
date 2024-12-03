@@ -1,0 +1,160 @@
+
+      
+  
+
+  <div id="contenidoPDF1">
+    <h1 class="text-center" >Turnos por especialidad</h1>
+
+    <div class="mt-4 d-flex justify-content-center">
+      <div style="max-width:700px; width: 100%;">
+        <canvas id="myChart" class="mx-auto"></canvas>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="contenidoPDF2">
+
+    <div class="container mt-4">
+    <div class="grafico-turnos-dia">
+        <h3 class="text-center">Turnos por Dia</h3>
+        
+        <!-- Datepicker nativo para seleccionar fecha -->
+        <div class="d-flex justify-content-center my-3">
+            <label for="fechaSeleccionada">Selecciona una fecha</label>
+            <div>
+
+          <input type="date" id="fechaSeleccionada" class="form-control" [(ngModel)]="fechaSeleccionada" (change)="filtrarDatos()">
+        </div>
+
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-center">
+      <div style="max-width:900px; width: 100%; height: 100%;">
+        <canvas id="turnosPorDiaChart"></canvas>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+
+      <div id="contenidoPDF3">
+
+      <div class="container mt-4">
+        <h3 class="text-center">Turnos por Médico</h3>
+      
+        <!-- Filtros de fecha -->
+        <div class="d-flex justify-content-center my-3">
+          <div>
+            <label for="fechaInicio">Fecha Inicio:</label>
+            <input id="fechaInicio" type="date" [(ngModel)]="fechaInicio" class="form-control" />
+          </div>
+          <div class="ms-3">
+            <label for="fechaFin">Fecha Fin:</label>
+            <input id="fechaFin" type="date" [(ngModel)]="fechaFin" class="form-control" />
+          </div>
+          <div class="ms-3 align-self-end">
+            <button class="btn " (click)="filtrarDatosEspecialista()">Filtrar</button>
+          </div>
+        </div>    
+      <div class="mt-4 d-flex justify-content-center">
+     <div style="max-width:700px; width: 100%;">
+      <canvas id="turnosPorMedicoChart"></canvas>
+     </div>
+    </div>
+
+  </div>
+
+
+      <div class="container mt-4">
+        <h3 class="text-center">Turnos por Médicos Finalizados</h3>
+      
+        <!-- Filtros de fecha -->
+        <div class="d-flex justify-content-center my-3">
+          <div>
+            <label for="fechaInicioFinalizados">Fecha Inicio:</label>
+            <input id="fechaInicioFinalizados" type="date" [(ngModel)]="fechaInicioFinalizados" class="form-control" />
+          </div>
+          <div class="ms-3">
+            <label for="fechaFinFinalizados">Fecha Fin:</label>
+            <input id="fechaFinFinalizados" type="date" [(ngModel)]="fechaFinFinalizados" class="form-control" />
+          </div>
+          <div class="ms-3 align-self-end">
+            <button class="btn btn-primary" (click)="filtrarDatosEspecialistaFinalizado()">Filtrar</button>
+          </div>
+        </div>
+            <!-- Gráfico -->
+            <div class="mt-4 d-flex justify-content-center">
+              <div style="max-width:700px; width: 100%;">
+                <canvas id="turnosPorMedicoFinalizadosChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+      </div>
+    
+
+      
+
+
+    <!-- Cargando logs -->
+    <div *ngIf="loading" class="text-center">
+      <p>Cargando logs...</p>
+    </div>
+  
+    <!-- No hay logs -->
+    <div *ngIf="!loading && logs.length === 0" class="text-center">
+      <p>No se encontraron logs.</p>
+    </div>
+
+
+    <!-- Mostrar logs -->
+<!-- Mostrar logs -->
+  <h2 class="text-center" >Logs de los usuarios </h2>
+  <div *ngIf="!loading && logs.length > 0">
+    <div class="table-container">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let log of logs">
+              <td>{{ log.usuario }}</td>
+              <td>{{ log.fecha }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Botones para exportar a Excel y PDF -->
+    <div class="mt-3 text-center">
+      <button class="btn btn-primary me-2" (click)="exportarExcel()">Exportar a Excel</button>
+      <button class="btn btn-danger" (click)="generarPDF()">Exportar a PDF</button>
+    </div>
+  

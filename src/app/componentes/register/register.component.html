@@ -1,0 +1,451 @@
+<div *ngIf="loading" class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only"></span>
+  </div>
+</div>
+
+<div *ngIf="!loading">
+  <div class="form-container">
+    <!-- Tipo de Usuario -->
+    <div class="user-type-selector">
+      <div *ngIf="isAdmin()  || userType != ''">
+
+      <button (click)="esPaciente()">Paciente</button>
+      <button (click)="esEspecialista()">Especialista</button>
+
+      
+        <button *ngIf="isAdmin()" class="btn btn-outline-primary card-button admin" (click)="esAdmin()">Admin</button>
+      </div>
+
+
+    
+<div *ngIf="!isAdmin() && userType === ''" class="container-fluid d-flex flex-column justify-content-center align-items-center animated-container" style="height: 100vh;">
+  <!-- Título -->
+  <h2 class="mb-4 text-center animated-title">Elija un tipo de usuario a registrar!</h2>
+  
+  <!-- Contenedor de los botones -->
+  <div class="d-flex justify-content-center align-items-center">
+    <!-- Botón para Paciente (Rectangular) -->
+    <button (click)="esPaciente()" class="btn btn-primary p-0 animated-button" style="width: 400px; height: 200px; border: none; overflow: hidden;">
+      <img src="https://media.istockphoto.com/id/477857440/es/foto/solo-paciente-en-el-hospital.jpg?s=170667a&w=0&k=20&c=Qm6Vtdh6vnXkI6MAsw4ErFZoQGML06JXi6DT21KtZX0=" alt="Paciente" class="w-100 h-100 object-cover">
+    </button>
+    
+    <!-- Botón para Especialista (Rectangular) -->
+    <button (click)="esEspecialista()" class="btn btn-success p-0 animated-button" style="width: 400px; height: 200px; margin-left: 20px; border: none; overflow: hidden;">
+      <img src="https://static.vecteezy.com/system/resources/thumbnails/026/375/249/small_2x/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg" alt="Especialista" class="w-100 h-100 object-cover">
+    </button>
+  </div>
+</div>
+      
+      
+      
+    </div>
+
+    <div class="container mt-5" *ngIf="userType != ''">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-lg rounded">
+            <div class="card-header text-center bg-primary text-white">
+              <h4>Registro de Usuario</h4>
+            </div>
+            <div class="card-body">
+              <!-- Formulario de registro -->
+              <form [formGroup]="registerFormPaciente" (ngSubmit)="onSubmit()" *ngIf="userType === 'paciente'">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Nombre</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    formControlName="name"
+                    placeholder="Ingresa tu nombre"
+                  />
+                  <div class="text-danger" *ngIf="registerFormPaciente.get('name')?.touched && registerFormPaciente.get('name')?.invalid">
+                    <small *ngIf="registerFormPaciente.get('name')?.errors?.['required']">El nombre es obligatorio.</small>
+                    <small *ngIf="registerFormPaciente.get('name')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</small>
+                  </div>
+                </div>
+              
+                <div class="mb-3">
+                  <label for="surname" class="form-label">Apellido</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="surname"
+                    formControlName="surname"
+                    placeholder="Ingresa tu apellido"
+                  />
+                  <div class="text-danger" *ngIf="registerFormPaciente.get('surname')?.touched && registerFormPaciente.get('surname')?.invalid">
+                    <small *ngIf="registerFormPaciente.get('surname')?.errors?.['required']">El apellido es obligatorio.</small>
+                    <small *ngIf="registerFormPaciente.get('surname')?.errors?.['minlength']">El apellido debe tener al menos 2 caracteres.</small>
+                  </div>
+                </div>
+              
+                <div class="mb-3">
+                  <label for="age" class="form-label">Edad</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="age"
+                    formControlName="age"
+                    placeholder="Ingresa tu edad"
+                  />
+                  <div class="text-danger" *ngIf="registerFormPaciente.get('age')?.touched && registerFormPaciente.get('age')?.invalid">
+                    <small *ngIf="registerFormPaciente.get('age')?.errors?.['required']">La edad es obligatoria.</small>
+                    <small *ngIf="registerFormPaciente.get('age')?.errors?.['min']">La edad debe ser mayor a 18.</small>
+                    <small *ngIf="registerFormPaciente.get('age')?.errors?.['max']">La edad debe ser menor o igual a 120.</small>
+                  </div>
+                </div>
+              
+                <div class="mb-3">
+                  <label for="dni" class="form-label">DNI</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="dni"
+                    formControlName="dni"
+                    placeholder="Ingresa tu DNI"
+                  />
+                  <div class="text-danger" *ngIf="registerFormPaciente.get('dni')?.touched && registerFormPaciente.get('dni')?.invalid">
+                    <small *ngIf="registerFormPaciente.get('dni')?.errors?.['required']">El DNI es obligatorio.</small>
+                    <small *ngIf="registerFormPaciente.get('dni')?.errors?.['pattern']">El DNI debe tener 7 u 8 dígitos.</small>
+                  </div>
+                </div>
+              
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo Electrónico</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    placeholder="Ingresa tu correo electrónico"
+                  />
+                  <div class="text-danger" *ngIf="registerFormPaciente.get('email')?.touched && registerFormPaciente.get('email')?.invalid">
+                    <small *ngIf="registerFormPaciente.get('email')?.errors?.['required']">El correo electrónico es obligatorio.</small>
+                    <small *ngIf="registerFormPaciente.get('email')?.errors?.['email']">El correo electrónico no es válido.</small>
+                  </div>
+                </div>
+              
+                <div class="mb-3">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    formControlName="password"
+                    placeholder="Ingresa tu contraseña"
+                  />
+                  <div class="text-danger" *ngIf="registerFormPaciente.get('password')?.touched && registerFormPaciente.get('password')?.invalid">
+                    <small *ngIf="registerFormPaciente.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
+                    <small *ngIf="registerFormPaciente.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
+                  </div>
+                </div>
+              
+                <div class="mb-3">
+                  <label for="socialInsurance" class="form-label">Obra Social</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="socialInsurance"
+                    formControlName="socialInsurance"
+                    placeholder="Ingresa tu obra social"
+                  />
+                  <div class="text-danger" *ngIf="registerFormPaciente.get('socialInsurance')?.touched && registerFormPaciente.get('socialInsurance')?.invalid">
+                    <small *ngIf="registerFormPaciente.get('socialInsurance')?.errors?.['required']">La obra social es obligatoria.</small>
+                  </div>
+                </div>
+              
+                <div class="mb-3">
+                  <label for="profileImage" class="form-label">Foto de Perfil</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    (change)="onFileSelectProfile($event)"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="profileImage" class="form-label">Foto de Perfil</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    (change)="onFileSelectMedical($event)"
+                  />
+                </div>
+              
+   
+  <div appCaptcha (captchaValid)="onCaptchaValid($event)"></div>
+  <button type="submit" [disabled]="!captchaValido" class="btn btn-primary w-100 mt-3" [disabled]="registerFormDefault.invalid">
+    Registrar
+  </button>
+              </form>
+              
+    
+
+
+
+
+             <!-- Formulario para Especialista -->
+<form [formGroup]="registerFormEspecialista" (ngSubmit)="onSubmit()" *ngIf="userType === 'especialista'">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nombre</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      formControlName="name"
+      placeholder="Ingresa tu nombre"
+    />
+    <div class="text-danger" *ngIf="registerFormEspecialista.get('name')?.touched && registerFormEspecialista.get('name')?.invalid">
+      <small *ngIf="registerFormEspecialista.get('name')?.errors?.['required']">El nombre es obligatorio.</small>
+      <small *ngIf="registerFormEspecialista.get('name')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="surname" class="form-label">Apellido</label>
+    <input
+      type="text"
+      class="form-control"
+      id="surname"
+      formControlName="surname"
+      placeholder="Ingresa tu apellido"
+    />
+    <div class="text-danger" *ngIf="registerFormEspecialista.get('surname')?.touched && registerFormEspecialista.get('surname')?.invalid">
+      <small *ngIf="registerFormEspecialista.get('surname')?.errors?.['required']">El apellido es obligatorio.</small>
+      <small *ngIf="registerFormEspecialista.get('surname')?.errors?.['minlength']">El apellido debe tener al menos 2 caracteres.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="age" class="form-label">Edad</label>
+    <input
+      type="number"
+      class="form-control"
+      id="age"
+      formControlName="age"
+      placeholder="Ingresa tu edad"
+    />
+    <div class="text-danger" *ngIf="registerFormEspecialista.get('age')?.touched && registerFormEspecialista.get('age')?.invalid">
+      <small *ngIf="registerFormEspecialista.get('age')?.errors?.['required']">La edad es obligatoria.</small>
+      <small *ngIf="registerFormEspecialista.get('age')?.errors?.['min']">La edad debe ser mayor a 18.</small>
+      <small *ngIf="registerFormEspecialista.get('age')?.errors?.['max']">La edad debe ser menor o igual a 70.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="dni" class="form-label">DNI</label>
+    <input
+      type="text"
+      class="form-control"
+      id="dni"
+      formControlName="dni"
+      placeholder="Ingresa tu DNI"
+    />
+    <div class="text-danger" *ngIf="registerFormEspecialista.get('dni')?.touched && registerFormEspecialista.get('dni')?.invalid">
+      <small *ngIf="registerFormEspecialista.get('dni')?.errors?.['required']">El DNI es obligatorio.</small>
+      <small *ngIf="registerFormEspecialista.get('dni')?.errors?.['pattern']">El DNI debe tener 7 u 8 dígitos.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Correo Electrónico</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      formControlName="email"
+      placeholder="Ingresa tu correo electrónico"
+    />
+    <div class="text-danger" *ngIf="registerFormEspecialista.get('email')?.touched && registerFormEspecialista.get('email')?.invalid">
+      <small *ngIf="registerFormEspecialista.get('email')?.errors?.['required']">El correo electrónico es obligatorio.</small>
+      <small *ngIf="registerFormEspecialista.get('email')?.errors?.['email']">El correo electrónico no es válido.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Contraseña</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="password"
+      placeholder="Ingresa tu contraseña"
+    />
+    <div class="text-danger" *ngIf="registerFormEspecialista.get('password')?.touched && registerFormEspecialista.get('password')?.invalid">
+      <small *ngIf="registerFormEspecialista.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
+      <small *ngIf="registerFormEspecialista.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="specialties" class="form-label">Especialidades</label>
+    <div *ngFor="let specialty of specialties" class="form-check">
+      <input
+        type="checkbox"
+        [value]="specialty"
+        (change)="onCheckboxChange($event)"
+        class="form-check-input"
+        id="{{ specialty }}"
+      />
+      <label class="form-check-label" for="{{ specialty }}">
+        {{ specialty }}
+      </label>
+    </div>
+    <div class="text-danger" *ngIf="!selectedSpecialties && registerFormEspecialista.get('specialties')?.touched">
+      <small>Debes seleccionar al menos una especialidad.</small>
+    </div>
+
+    <div class="d-flex mt-2">
+      <input
+        type="text"
+        formControlName="newSpecialty"
+        placeholder="Agregar especialidad"
+        class="form-control me-2"
+      />
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="addSpecialty()"
+      >
+        Agregar
+      </button>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="profileImage" class="form-label">Foto de Perfil</label>
+    <input type="file" class="form-control" (change)="onFileSelectProfile($event)" />
+  </div>
+
+
+  <div appCaptcha (captchaValid)="onCaptchaValid($event)"></div>
+
+  <button type="submit" [disabled]="!captchaValido" class="btn btn-primary w-100 mt-3" [disabled]="registerFormDefault.invalid">
+    Registrar
+  </button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+    
+              <!-- Formulario para otros tipos de usuario -->
+<!-- Formulario para otros tipos de usuario (Admin) -->
+<form [formGroup]="registerFormDefault" (ngSubmit)="onSubmit()" *ngIf="userType === 'admin'">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nombre</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      formControlName="name"
+      placeholder="Ingresa tu nombre"
+    />
+    <div class="text-danger" *ngIf="registerFormDefault.get('name')?.touched && registerFormDefault.get('name')?.invalid">
+      <small *ngIf="registerFormDefault.get('name')?.errors?.['required']">El nombre es obligatorio.</small>
+      <small *ngIf="registerFormDefault.get('name')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="surname" class="form-label">Apellido</label>
+    <input
+      type="text"
+      class="form-control"
+      id="surname"
+      formControlName="surname"
+      placeholder="Ingresa tu apellido"
+    />
+    <div class="text-danger" *ngIf="registerFormDefault.get('surname')?.touched && registerFormDefault.get('surname')?.invalid">
+      <small *ngIf="registerFormDefault.get('surname')?.errors?.['required']">El apellido es obligatorio.</small>
+      <small *ngIf="registerFormDefault.get('surname')?.errors?.['minlength']">El apellido debe tener al menos 2 caracteres.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="age" class="form-label">Edad</label>
+    <input
+      type="number"
+      class="form-control"
+      id="age"
+      formControlName="age"
+      placeholder="Ingresa tu edad"
+    />
+    <div class="text-danger" *ngIf="registerFormDefault.get('age')?.touched && registerFormDefault.get('age')?.invalid">
+      <small *ngIf="registerFormDefault.get('age')?.errors?.['required']">La edad es obligatoria.</small>
+      <small *ngIf="registerFormDefault.get('age')?.errors?.['min']">La edad debe ser mayor a 18.</small>
+      <small *ngIf="registerFormDefault.get('age')?.errors?.['max']">La edad debe ser menor o igual a 70.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="dni" class="form-label">DNI</label>
+    <input
+      type="text"
+      class="form-control"
+      id="dni"
+      formControlName="dni"
+      placeholder="Ingresa tu DNI"
+    />
+    <div class="text-danger" *ngIf="registerFormDefault.get('dni')?.touched && registerFormDefault.get('dni')?.invalid">
+      <small *ngIf="registerFormDefault.get('dni')?.errors?.['required']">El DNI es obligatorio.</small>
+      <small *ngIf="registerFormDefault.get('dni')?.errors?.['pattern']">El DNI debe tener 7 u 8 dígitos.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Correo Electrónico</label>
+    <input
+      type="email"
+      class="form-control"
+      id="email"
+      formControlName="email"
+      placeholder="Ingresa tu correo electrónico"
+    />
+    <div class="text-danger" *ngIf="registerFormDefault.get('email')?.touched && registerFormDefault.get('email')?.invalid">
+      <small *ngIf="registerFormDefault.get('email')?.errors?.['required']">El correo electrónico es obligatorio.</small>
+      <small *ngIf="registerFormDefault.get('email')?.errors?.['email']">El correo electrónico no es válido.</small>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Contraseña</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      formControlName="password"
+      placeholder="Ingresa tu contraseña"
+    />
+    <div class="text-danger" *ngIf="registerFormDefault.get('password')?.touched && registerFormDefault.get('password')?.invalid">
+      <small *ngIf="registerFormDefault.get('password')?.errors?.['required']">La contraseña es obligatoria.</small>
+      <small *ngIf="registerFormDefault.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="profileImage" class="form-label">Foto de Perfil</label>
+    <input type="file" class="form-control" (change)="onFileSelectProfile($event)" />
+  </div>
+
+
+  <div appCaptcha (captchaValid)="onCaptchaValid($event)"></div>
+
+  <button type="submit" [disabled]="!captchaValido" class="btn btn-primary w-100 mt-3" [disabled]="registerFormDefault.invalid">
+    Registrar
+  </button>
+</form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    

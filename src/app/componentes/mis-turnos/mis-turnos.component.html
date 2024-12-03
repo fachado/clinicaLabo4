@@ -1,0 +1,144 @@
+<div class="container-fluid min-vh-100 d-flex flex-column py-4">
+  <!-- Mensaje cuando no hay turnos -->
+  <div *ngIf="turnos.length === 0" class="alert alert-info text-center mt-auto mb-auto">
+    No tienes turnos disponibles.
+  </div>
+
+  <!-- Sección cuando hay turnos -->
+  <div *ngIf="turnos.length > 0" class="flex-grow-1">
+    <h2 class="text-center mb-4">Mis Turnos</h2>
+
+    <!-- Filtros -->
+    <div class="d-flex justify-content-center gap-3 mb-4">
+      <!-- Filtro general -->
+      <input
+        type="text"
+        class="form-control w-25"
+        [(ngModel)]="filtroGeneral"
+        placeholder="Buscar en todos los campos"
+      />
+    
+      <!-- Filtro específico por rol -->
+      <input
+        *ngIf="usuario.userType === 'especialista'"
+        type="text"
+        class="form-control w-25"
+        [(ngModel)]="filtroPaciente"
+        placeholder="Filtrar por paciente"
+      />
+      <input
+        *ngIf="usuario.userType === 'paciente'"
+        type="text"
+        class="form-control w-25"
+        [(ngModel)]="filtroEspecialista"
+        placeholder="Filtrar por especialista"
+      />
+    </div>
+    
+
+    <!-- Mensaje cuando no hay turnos filtrados -->
+    <div *ngIf="turnosFiltrados.length === 0" class="alert alert-warning text-center">
+      No se encontraron turnos con esos filtros.
+    </div>
+
+    <!-- Tabla de Turnos -->
+    <div *ngIf="turnosFiltrados.length > 0">
+      <table class="table table-hover table-striped">
+        <thead class="table-primary">
+          <tr>
+            <th *ngIf="this.usuario.userType === 'paciente'">Especialista</th>
+            <th *ngIf="this.usuario.userType === 'especialista'">Paciente</th>
+            <th>Especialidad</th>
+            <th>Fecha</th>
+            <th>Horario</th>
+            <th>Estado</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let turno of turnosFiltrados | filtrosTurnos:filtroGeneral:filtroEspecialidad:filtroPaciente:filtroEspecialista" >
+            <td *ngIf="this.usuario.userType === 'especialista'">{{ turno.paciente }}</td>
+            <td *ngIf="this.usuario.userType === 'paciente'">{{ turno.especialista }}</td>
+            <td>{{ turno.especialidad }}</td>
+            <td>{{ turno.horario.fecha | date }}</td>
+            <td>{{ turno.horario.horaInicio }} - {{ turno.horario.horaFin }}</td>
+            <td>
+              <span class="badge" [ngClass]="turno.estado | estadoClase">
+                {{ turno.estado }}
+              </span>
+            </td>
+            <td class="text-center">
+              <div class="btn-group" role="group" aria-label="Acciones de Turno">
+                <!-- Botón Cancelar -->
+                <button
+                  *ngIf="turno.estado !== 'Finalizado' && turno.estado !== 'Rechazado' && turno.estado !== 'Cancelado'"
+                  class="btn btn-danger btn-sm me-2"
+                  (click)="cancelarTurno(turno.id)">
+                  Cancelar
+                </button>
+            
+                <!-- Botón Rechazar -->
+                <button
+                  *ngIf="turno.estado !== 'Finalizado' && turno.estado !== 'Aceptado' && turno.estado !== 'Cancelado' && this.usuario.userType === 'especialista'"
+                  class="btn btn-warning btn-sm me-2"
+                  (click)="rechazarTurno(turno.id)">
+                  Rechazar
+                </button>
+            
+                <!-- Botón Aceptar -->
+                <button
+                  *ngIf="turno.estado === 'pendiente' && this.usuario.userType === 'especialista'"
+                  class="btn btn-success btn-sm me-2"
+                  (click)="aceptarTurno(turno.id)">
+                  Aceptar
+                </button>
+            
+                <!-- Botón Finalizar Turno -->
+                <button
+                  *ngIf="turno.estado === 'Aceptado' && this.usuario.userType === 'especialista'"
+                  class="btn btn-info btn-sm me-2"
+                  (click)="finalizarTurno(turno.id)">
+                  Finalizar
+                </button>
+            
+                <!-- Botón Ver Reseña -->
+                <button
+                  *ngIf="turno.ComentarioFinalizado"
+                  class="btn btn-secondary btn-sm me-2"
+                  (click)="verResena(turno.id)">
+                  Ver Reseña
+                </button>
+            
+                <!-- Botón Completar Encuesta -->
+                <button 
+                  *ngIf="turno.ComentarioFinalizado && turno.estado === 'Finalizado' && this.usuario.userType === 'paciente' && !turno.encuesta" 
+                  class="btn btn-success btn-sm me-2" 
+                  (click)="completarEncuesta(turno.id)">
+                  Completar Encuesta
+                </button>
+            
+                <!-- Botón Calificar Atención -->
+                <button 
+                  *ngIf="turno.estado === 'Finalizado' && this.usuario.userType === 'paciente' && !turno.calificacionAtencion" 
+                  class="btn btn-warning btn-sm me-2" 
+                  (click)="calificarAtencion(turno.id)">
+                  Calificar Atención
+                </button>
+            
+                <!-- Botón Cargar Historia Clínica -->
+                <button
+                *ngIf="turno.estado === 'Finalizado' && this.usuario.userType === 'especialista' && !turno.HistoriaClinica "
+                class="btn btn-success btn-sm me-2"
+                  (click)="abrirFormularioHistoria(turno.id)">
+                  Cargar historia clínica
+                </button>
+              </div>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+/* Estilos generales de la página */
+.perfil-container2 {
+  width: 100%;
+  max-width: 800px; /* Ajusta el tamaño según lo necesites */
+  margin: 20px auto; /* Centra el div */
+  padding: 20px;
+  background-color: #fff; /* Fondo blanco o el color que prefieras */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 128, 2, 0.96); /* Sombra con color azul */
+}
+
+h2, h3 {
+  color: #5c4033; /* Color cálido para títulos */
+  font-weight: 600;
+}
+
+h5 {
+  color: #3e2723; /* Título de las tarjetas */
+}
+
+/* Contenedor del perfil */
+.perfil-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fff; /* Fondo blanco para las secciones */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Imagen de perfil */
+.perfil-imagen {
+  transition: transform 0.3s ease-in-out;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%; /* Asegura que la imagen sea redonda */
+  object-fit: cover; /* Hace que la imagen cubra completamente el espacio sin deformarse */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgb(255, 136, 0); /* Sombra con color azul */
+}
+
+
+.perfil-imagen:hover {
+  transform: scale(1.1); /* Efecto de aumento al pasar el mouse */
+}
+
+/* Estilos para los botones */
+button {
+  background-color: #f28c28; /* Color cálido para botones */
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #f57c00; /* Cambio de color al pasar el mouse */
+  transform: translateY(-2px); /* Efecto de elevación */
+}
+
+button:disabled {
+  background-color: #c5e1a5; /* Color suave cuando está deshabilitado */
+  cursor: not-allowed;
+}
+
+/* Estilos de la tarjeta de historia clínica */
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Efecto de elevación */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil al pasar el mouse */
+}
+
+.card-header {
+  background-color: #f28c28;
+  color: white;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-body p {
+  color: #5c4033;
+  margin: 5px 0;
+}
+
+/* Estilo de las filas de los formularios */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control, .form-select {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Colores de fondo suaves para las secciones */
+.container {
+  background-color: #f7e0d1; /* Fondo cálido y suave */
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+/* Estilo de los checkboxes */
+.form-check-label {
+  font-weight: 500;
+  color: #5c4033;
+}
+
+.form-check-input:checked {
+  background-color: #f28c28;
+  border-color: #f28c28;
+}
+
+/* Estilo de los elementos dinámicos */
+ul.list-unstyled {
+  margin-top: 10px;
+}
+
+ul.list-unstyled li {
+  background-color: #f4e1d2;
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+.perfil-container.paciente {
+  background-color: #f7e0d1;
+  color: #5c4033;
+}
+
+.perfil-container.especialista {
+  background-color: #e0f7d1;
+  color: #336633;
+}
+
+.perfil-container.admin {
+  background-color: #d1e0f7;
+  color: #333c5c;
+}

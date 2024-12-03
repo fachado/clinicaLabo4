@@ -1,0 +1,116 @@
+
+    $primary-color: #000000;
+    $secondary-color: #ff9f30;
+    
+    /* Fondo */
+    .background {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    
+      .background-blur {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.shutterstock.com/image-photo/establishing-shot-active-local-indian-600nw-2440604963.jpg') no-repeat center center;
+        background-size: cover;
+        filter: blur(10px);
+        z-index: 1;
+      }
+    
+      .container-fluid {
+        position: relative;
+        z-index: 2;
+      }
+    }
+    
+    /* Tarjetas */
+    .custom-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      min-height: 600px;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .card-overlay {
+        padding: 2rem;
+        height: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: rgba(195, 244, 239, 0.8); /* Fondo translúcido */
+        backdrop-filter: blur(5px);
+    
+        .card-title {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: $primary-color;
+          margin-bottom: 1rem;
+        }
+    
+ 
+        
+      }
+    
+      /* Logo */
+      .logo-container {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border-radius: 50%;
+        padding: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+        .logo {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+    }
+    .card-text {
+      font-size: 1.5rem; /* Aumenta el tamaño de la letra */
+      line-height: 2rem; /* Mejora el espaciado entre líneas */
+      text-align: justify; /* Justifica el texto para un diseño limpio */
+      padding: 20px; /* Añade espacio interno */
+      color: #333; /* Color de texto para buena legibilidad */
+      
+
+    }
+    /* Botones */
+    .custom-btn {
+      background-color: $secondary-color;
+      color: white;
+      border: 2px solid $secondary-color;
+    
+      &:hover {
+        background-color: white;
+        color: $secondary-color;
+      }
+    }
+    
+    .custom-btn-outline {
+      background: none;
+      color: $primary-color;
+      border: 2px solid $primary-color;
+    
+      &:hover {
+        background-color: $primary-color;
+        color: white;
+      }
+    }
+    

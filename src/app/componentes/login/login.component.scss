@@ -1,0 +1,96 @@
+/* Estilo para el formulario de login */
+.card {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+  
+  .card-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .form-label {
+    font-weight: 600;
+  }
+  
+  .form-control {
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 0.875rem;
+    border: 1px solid #ccc;
+    box-shadow: none;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Estilo para el botón de "Iniciar sesión" */
+  .btn-primary {
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    font-size: 0.875rem;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  /* Estilo para el spinner */
+  .spinner-border {
+    width: 2rem;
+    height: 2rem;
+  }
+  /* Botones de Acceso Rápido */
+  .access-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px; /* Ancho del botón */
+    height: 50px; /* Alto del botón */
+    margin: 2px; /* Espaciado entre botones */
+    padding: 0; /* Sin relleno para maximizar el área de la imagen */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .access-button img {
+    width: 100%; /* Ocupa todo el ancho del botón */
+    height: 100%; /* Ocupa todo el alto del botón */
+    object-fit: fill; /* La imagen se estira para cubrir todo el botón */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+  
+  .access-button:hover {
+    background-color: #e9ecef;
+    transform: scale(1.02);
+  }
+  
+  .access-button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Contenedor para los botones de acceso rápido */
+  .d-flex.justify-content-between {
+    gap: 0; /* Elimina cualquier espacio adicional entre los botones */
+    margin-bottom: 50px; /* Ajusta la separación con la tarjeta */
+    flex-wrap: wrap; /* Permite que los botones se adapten en pantallas pequeñas */
+    justify-content: center; /* Centra los botones */
+  }
+  

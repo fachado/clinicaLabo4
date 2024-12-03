@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #ffffff; /* Blanco */
+    --secondary-color: #ffd700; /* Amarillo suave */
+    --text-color: #333333; /* Gris oscuro para textos */
+  }
+  
+  .navbar-custom {
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand, .nav-link, .btn-outline-primary {
+    color: var(--text-color) !important;
+  }
+  
+  .nav-link:hover {
+    color: var(--secondary-color) !important;
+  }
+  
+  .btn-outline-primary {
+    border-color: var(--secondary-color);
+    color: var(--text-color);
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-color: var(--secondary-color);
+  }
+  

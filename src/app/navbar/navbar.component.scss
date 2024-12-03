@@ -1,0 +1,24 @@
+/* Estilo para los botones de inicio de sesión y registro */
+.navbar .btn-outline-primary,
+.navbar .btn-primary {
+  font-weight: 600;
+  padding: 5px 15px; /* Ajuste el tamaño del padding */
+  border-radius: 25px;
+  font-size: 0.875rem; /* Tamaño de fuente más pequeño para que coincida con los enlaces */
+}
+
+.navbar .btn-primary {
+  background-color: #fda32e;
+  border-color: #fda32e;
+}
+
+.navbar .btn-primary:hover,
+.navbar .btn-outline-primary:hover {
+  background-color: #fda32e;
+  border-color: #fda32e;
+}
+
+/* Asegurando que los botones estén a la derecha */
+.navbar .d-flex.ms-auto {
+  margin-left: auto;
+}

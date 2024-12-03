@@ -1,0 +1,174 @@
+<div class="perfil-container min-vh-100" *ngIf="usuario" appUsuarioEstilo ="usuario.userType" [@bounceIn]>
+  <h2 class="text-center">Mi Perfil</h2>
+
+  <!-- Imagen de perfil -->
+   <div class="text-center">
+
+    <!-- Verifica si el usuario es de tipo 'paciente' -->
+    <ng-container *ngIf="usuario.userType === 'paciente'; else singleImage">
+      <!-- Mostrar todas las imágenes si es paciente -->
+      <div>
+        <img *ngFor="let imagen of usuario.imagenes" [src]="imagen" alt="{{ usuario.nombre }}" 
+        class="perfil-imagen rounded-circle" style="width: 170px; height: 170px;" />
+      </div>
+    </ng-container>
+  
+    <!-- Mostrar solo una imagen para otros tipos de usuarios -->
+    <ng-template #singleImage>
+      <img [src]="usuario.imagenes[0]" alt="{{ usuario.nombre }}"  class="perfil-imagen rounded-circle" style="width: 170px; height: 170px;" />
+    </ng-template>
+  </div>
+
+  
+  <!-- Información del usuario -->
+
+  <div class="perfil-container2 " *ngIf="usuario">
+  
+    <!-- Información de usuario -->
+    <div class="row">
+      <div class="col-md-6">
+        <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+        <p><strong>Apellido:</strong> {{ usuario.apellido }}</p>
+        <p><strong>Email:</strong> {{ usuario.email }}</p>
+        <p><strong>Edad:</strong> {{ usuario.edad }}</p>
+        <p><strong>dni:</strong> {{ usuario.dni }}</p>
+
+  
+        <p *ngIf="usuario.userType === 'paciente'"><strong>Obra Social:</strong> {{ usuario.obraSocial }}</p>
+        <p *ngIf="usuario.userType === 'especialista'"><strong>Especialidades:</strong> {{ usuario.especialidad }}</p>
+
+      </div>
+    </div>
+  
+    <!-- Botón para generar PDF -->
+<!-- Filtro de Especialista -->
+
+
+<div class="form-group" *ngIf="usuario.userType === 'paciente'">
+  <label for="especialista">Filtrar por Especialista:</label>
+  <select id="especialista" [(ngModel)]="especialistaSeleccionado" class="form-control" (change)="applyFilter()">
+    <option value="todos">Todos</option>
+    <option *ngFor="let especialista of especialistas" [value]="especialista">{{especialista}}</option>
+  </select>
+</div>
+
+<!-- Historia Clínica -->
+<div *ngFor="let historia of historiasFiltradas" class="card">
+  <div class="card-header">
+    <h5>Historia Clínica: {{ historia.especialidad }}</h5>
+    <p><strong>Fecha:</strong> {{ historia.dia }}</p>
+    <p><strong>Hora:</strong> {{ historia.horario.horaInicio }}</p>
+  </div>
+  <div class="card-body">
+    <p><strong>Especialista:</strong> {{ historia.especialista }}</p>
+    <p><strong>Estado:</strong> {{ historia.estado }}</p>
+    <p><strong>Presión:</strong> {{ historia.HistoriaClinica.presion }}</p>
+    <p><strong>Peso:</strong> {{ historia.HistoriaClinica.peso }} kg</p>
+    <p><strong>Temperatura:</strong> {{ historia.HistoriaClinica.temperatura }}°C</p>
+    <p><strong>Altura:</strong> {{ historia.HistoriaClinica.altura }} cm</p>
+
+  </div>
+  <div class="card-footer" *ngIf="historia.HistoriaClinica.dinamicos?.length > 0">
+    <p>Datos dinamicos:</p>
+  <p *ngFor="let item of historia.HistoriaClinica.dinamicos">
+    <strong>{{ item.clave }}:</strong> {{ item.valor }}
+  </p>
+</div>
+
+  </div>
+
+
+</div>
+
+<!-- Botón para generar el PDF -->
+<button *ngIf="usuario.userType === 'paciente'"                  (click)="generatePDF(historiasFiltradas)" class="btn btn-primary">Generar PDF</button>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Solo mostrar la sección de horarios si el usuario es especialista -->
+  <div *ngIf="usuario?.userType === 'especialista'">
+    <h3 class="text-center">Horarios de trabajo:</h3>
+
+<!-- Formulario de horarios -->
+<form [formGroup]="horariosForm">
+  <div formArrayName="horarios" class="row">
+    <div *ngFor="let horario of horarios.controls; let i = index" [formGroupName]="i" class="col-md-6 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title">{{ usuario.especialidad[i] }}</h4>  <!-- Muestra la especialidad correspondiente -->
+
+          <!-- Selección de días -->
+          <div formGroupName="diasSeleccionados">
+            <div class="form-check" *ngFor="let dia of diasDeLaSemana">
+              <input class="form-check-input" type="checkbox" [formControlName]="dia" id="dia{{dia}}">
+              <label class="form-check-label" for="dia{{dia}}">
+                {{ dia }}
+              </label>
+            </div>
+          </div>
+
+          <!-- Hora de inicio -->
+          <div class="mb-2">
+            <label for="horaInicio" *ngIf="">Hora de Inicio:</label>
+            <select formControlName="horaInicio" class="form-select">
+              <option value="08:00">08:00</option>
+              <option value="09:00">09:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="12:00">12:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+              <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+              <option value="19:00">19:00</option>
+            </select>
+          </div>
+
+          <!-- Hora de fin -->
+          <div class="mb-2">
+            <label for="horaFin">Hora de Fin:</label>
+            <select formControlName="horaFin" class="form-select">
+              <option value="09:00">09:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="12:00">12:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+    <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+              <option value="19:00">19:00</option>
+            </select>
+          </div>
+
+          <!-- Tiempo de turno -->
+          <div class="mb-2">
+            <label for="tiempoTurno">Tiempo del Turno:</label>
+            <input type="number" formControlName="tiempoTurno" class="form-control" min="1" />
+          </div>
+
+          <!-- Botón para eliminar el horario -->
+          <button class="btn btn-danger btn-sm" (click)="removeHorario(i)" type="button">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón para guardar los horarios -->
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" [disabled]="horariosForm.invalid" (click)="guardarHorarios()">Guardar Horarios</button>
+  </div>
+</form>
