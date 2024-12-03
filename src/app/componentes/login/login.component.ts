@@ -1,21 +1,33 @@
 import { Component } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { Auth, signInWithEmailAndPassword, sendEmailVerification, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';  // Asegúrate de importar Firestore y las funciones necesarias
+import { Firestore, doc, getDoc } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import Swal from 'sweetalert2';  // Importa SweetAlert2
+import Swal from 'sweetalert2';
 import { UsuariosService } from '../../usuarios.service';
-import { map, Observable } from 'rxjs'
-import { collection, addDoc,  updateDoc, getDocs, query, where ,} from '@angular/fire/firestore';
+import { map, Observable } from 'rxjs';
+import { collection, addDoc, updateDoc, getDocs, query, where } from '@angular/fire/firestore';
 import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule,FormsModule,],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [ // Animación de entrada
+        style({ opacity: 0, transform: 'translateX(-10%)' }), // Estado inicial
+        animate('1000ms ease-out', style({ opacity: 1, transform: 'translateX(0)' })) // Estado final
+      ]),
+      transition(':leave', [ // Animación de salida
+        animate('1000ms ease-in', style({ opacity: 0, transform: 'translateX(-10%)' })) // Estado final
+      ])
+    ])
+  ]
 })
 export class LoginComponent {
   email: string = '';
@@ -58,7 +70,7 @@ export class LoginComponent {
 
   }
   paciente2(){
-    this.email="xawaj25666@nozamas.com";
+    this.email="damebop920@luxyss.com";
     this.password="123456";
 
 

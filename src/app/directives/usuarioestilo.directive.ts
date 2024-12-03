@@ -21,9 +21,15 @@ export class UsuarioestiloDirective  {
       case 'Dermatología':
         color = 'lightgreen';
         break;
-      case 'Pediatría':
-        color = 'lightyellow';
+      case 'Neurología':
+        color = 'lightpink';
         break;
+        case 'traumatologia':
+          color = 'mediumpurple';
+          break;
+          case 'oculista':
+            color = 'yellowgreen';
+            break;
       default:
         color = 'lightgray';
     }

@@ -1,4 +1,4 @@
-<div class="container-fluid min-vh-100 d-flex flex-column py-4">
+<div class="container-fluid min-vh-100 d-flex flex-column py-4" @zoomFade>
   <!-- Mensaje cuando no hay turnos -->
   <div *ngIf="turnos.length === 0" class="alert alert-info text-center mt-auto mb-auto">
     No tienes turnos disponibles.
@@ -61,7 +61,7 @@
             <td *ngIf="this.usuario.userType === 'especialista'">{{ turno.paciente }}</td>
             <td *ngIf="this.usuario.userType === 'paciente'">{{ turno.especialista }}</td>
             <td>{{ turno.especialidad }}</td>
-            <td>{{ turno.horario.fecha | date }}</td>
+            <td>{{ turno.horario.fecha  }}</td>
             <td>{{ turno.horario.horaInicio }} - {{ turno.horario.horaFin }}</td>
             <td>
               <span class="badge" [ngClass]="turno.estado | estadoClase">

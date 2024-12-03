@@ -1,27 +1,53 @@
-# Clinica
+# ¡Bienvenidos a la Clínica Trafalgar! 🏥 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+Este es un proyecto academico, es un sistema sobre una clinica, tanto para pacientes como para especialistas y administradores.
 
-## Development server
+## Características
+- Cada perfil tendra sus propias funciones
+- Rápido y eficiente.
+- Menu intuitivo.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Secciones dentro de la App 🌐
 
-## Code scaffolding
+### Página principal
+La pagina principal, va a contar con una breve informacion nuestra, una navbar para poder navegar entre las secciones y las opciones para poder acceder y registrase en nuestra clinica!
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+![Página principal](imagenes\INICIO.PNG "Captura de la página principal")
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Login
+Sistema de logueo de usuarios con botones predeterminados para los usuarios de prueba
 
-## Running unit tests
+![Login](imagenes\LOGIN.PNG "Vista delogin")
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Registro
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Sistema de registro tanto para pacientes como especialistas.
 
-## Further help
+![Diagrama de flujo](imagenes\REGISTRO.PNG "Vista del flujo")
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Mi perfil
+Seccion mi perfil, informacion sobre el usuario logueado, y opcion para horarios de trabajo si es especialista
+
+
+![Diagrama de flujo](imagenes\MIPERFIL.PNG "Vista del flujo")
+
+## Solicitar turno
+
+
+![Diagrama de flujo](imagenes\SOLICITARTUURNO.PNG "Vista del flujo")
+
+## Mis turnos
+
+
+![Diagrama de flujo](imagenes\MISTURNOS.PNG "Vista del flujo")
+
+## Usuarios para admin
+
+
+![Diagrama de flujo](imagenes\USUARIOS.PNG "Vista del flujo")
+
+## Pacientes para medicos
+
+![Diagrama de flujo](imagenes\PACIENTES.PNG "Vista del flujo")

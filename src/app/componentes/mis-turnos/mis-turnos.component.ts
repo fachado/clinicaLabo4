@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FiltrosTurnosPipe } from '../../pipes/filtros-turnos.pipe';
 import { EstadoClasePipe } from '../../pipes/estado-clase.pipe';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -13,6 +14,24 @@ import { EstadoClasePipe } from '../../pipes/estado-clase.pipe';
   imports: [CommonModule, ReactiveFormsModule, FormsModule,FiltrosTurnosPipe,EstadoClasePipe],
   templateUrl: './mis-turnos.component.html',
   styleUrls: ['./mis-turnos.component.scss']
+  ,
+  animations: [
+    trigger('zoomFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.5)' }),
+        animate(
+          '1000ms ease-out',
+          style({ opacity: 1, transform: 'scale(1)' })
+        )
+      ]),
+      transition(':leave', [
+        animate(
+          '1000ms ease-in',
+          style({ opacity: 0, transform: 'scale(0.5)' })
+        )
+      ])
+    ])
+  ]
 })
 export class MisTurnosComponent implements OnInit {
   turnos: any[] = [];
@@ -21,7 +40,7 @@ export class MisTurnosComponent implements OnInit {
   filtroPaciente: string = '';
   filtroGeneral: string = '';
 
-
+valorCheck!:string;
   usuario: any;
   nombre!: string;
   rol!: string;
@@ -188,17 +207,27 @@ export class MisTurnosComponent implements OnInit {
         const presion = (document.getElementById('presion') as HTMLInputElement).value;
         const camposDinamicos = Array.from(document.querySelectorAll('[id^="campo-dinamico-"]'));
         // Obtener el valor del campo de dolor (rango)
-const preguntaDolor = (document.getElementById('preguntaDolor-')as HTMLInputElement).value || '';
-const nivelDolor = (document.getElementById('nivelDolor-')as HTMLInputElement).value || '50'; // Valor por defecto 50
-const valorNivelDolor = document.getElementById('valorNivelDolor-')?.textContent || '50'; // Valor por defecto 50
+        const preguntaDolor = (document.getElementById('preguntaDolor-')as HTMLInputElement)?.value ;
+const nivelDolor = (document.getElementById('nivelDolor-')as HTMLInputElement)?.value ; // Valor por defecto 50
+const valorNivelDolor = document.getElementById('valorNivelDolor-')?.textContent ; // Valor por defecto 50
 
 // Obtener el valor del campo de frecuencia cardiaca
-const preguntaFrecuencia = (document.getElementById('preguntaFrecuencia-')as HTMLInputElement).value || '';
-const frecuenciaCardiaca = (document.getElementById('frecuenciaCardiaca-')as HTMLInputElement).value || '';
+const preguntaFrecuencia = (document.getElementById('preguntaFrecuencia-')as HTMLInputElement)?.value ;
+const frecuenciaCardiaca = (document.getElementById('frecuenciaCardiaca-')as HTMLInputElement)?.value ;
 
 // Obtener el valor del campo de fumador
-const preguntaFumador = (document.getElementById('preguntaFumador-')as HTMLInputElement).value || '';
-const esFumador = (document.getElementById('esFumador-')as HTMLInputElement).checked; // Valor por defecto false
+const preguntaFumador = (document.getElementById('preguntaFumador-')as HTMLInputElement)?.value;
+const esFumador = (document.getElementById('esFumador-') as HTMLInputElement)?.checked; // Valor por defecto false
+        if (!altura || !peso || !temperatura || !presion) {
+          Swal.showValidationMessage('Todos los datos fijos son obligatorios');
+          return null;
+        }
+
+
+// Convertir el valor booleano en "Sí" o "No"
+const resultado = esFumador ? 'Sí' : 'No';
+
+console.log("resultado ",resultado); // Imprime "Sí" o "No" dependiendo del valor de esFumador
 
 // Mostrar los valores en consola o usarlos según sea necesario
 console.log('Pregunta Dolor:', preguntaDolor, 'Nivel Dolor:', nivelDolor, 'Valor Nivel Dolor:', valorNivelDolor);
@@ -217,31 +246,20 @@ console.log('Pregunta Fumador:', preguntaFumador, 'Es Fumador:', esFumador);
           Swal.showValidationMessage('Todos los datos fijos son obligatorios');
           return null;
         }
-  
+ 
         return {
           altura: parseFloat(altura),
           peso: parseFloat(peso),
           temperatura: parseFloat(temperatura),
           presion,
           dinamicos: [
-              ...dinamicos.filter(d => d.clave && d.valor), // campos dinámicos generales
-              {
-                  clave: preguntaDolor,
-                  valor: valorNivelDolor,
-                  
-              },
-              {
-                  clave: preguntaFrecuencia,
-                  valor: frecuenciaCardiaca
-                  
-              },
-              {
-                  clave: preguntaFumador,
-                  valor:  esFumador
-                  
-              }
-          ]
-      };
+            ...dinamicos.filter(d => d.clave && d.valor),  // campos dinámicos generales
+            // Solo agregar la clave/valor si el valor no es undefined o null
+            valorNivelDolor !== undefined ? { clave: preguntaDolor, valor: valorNivelDolor } : null,
+            frecuenciaCardiaca !== undefined ? { clave: preguntaFrecuencia, valor: frecuenciaCardiaca } : null,
+            esFumador !== undefined ? { clave: preguntaFumador, valor: resultado } : null,
+        ].filter(Boolean) // Filtrar los elementos nulos o undefined
+    };
   },
     }).then((result) => {
       if (result.isConfirmed && result.value) {

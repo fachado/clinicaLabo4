@@ -24,10 +24,10 @@ interface Horario {
     trigger('slideInOut', [
       transition(':enter', [
         style({ transform: 'translateX(100%)' }), // Comienza fuera de la pantalla (derecha)
-        animate('300ms ease-out', style({ transform: 'translateX(0)' })) // Se desliza hacia la posición original
+        animate('800ms ease-out', style({ transform: 'translateX(0)' })) // Se desliza hacia la posición original
       ]),
       transition(':leave', [
-        animate('300ms ease-in', style({ transform: 'translateX(100%)' })) // Se desliza fuera de la pantalla (derecha)
+        animate('800ms ease-in', style({ transform: 'translateX(-100%)' })) // Se desliza fuera de la pantalla (derecha)
       ])
     ])
   ]
@@ -204,7 +204,7 @@ export class SolicitarTurnoComponent implements OnInit {
 
       if (fechasDia.length > 0) {
         // Si el especialista tiene turnos ese día, agregar la fecha
-        fechasUnicas.push(fecha.toISOString().split('T')[0]); // Solo la fecha en formato "YYYY-MM-DD"
+        fechasUnicas.push(`${fecha.getDate().toString().padStart(2, '0')}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}-${fecha.getFullYear()}`);
       }
     });
 
@@ -236,11 +236,11 @@ export class SolicitarTurnoComponent implements OnInit {
 
     const horariosUnicos: any[] = [];
     const ahora = new Date();
+// Crear una fecha en la zona horaria de Argentina manualmente
+const [day, month, year] = fechaSeleccionada.split('-').map(Number); // Formato "DD-MM-YYYY"
+const fecha = new Date(year, month - 1, day, ahora.getHours(), ahora.getMinutes(), ahora.getSeconds(), ahora.getMilliseconds());
+console.log(fecha);
 
-    // Crear una fecha en la zona horaria de Argentina manualmente
-    const [year, month, day] = fechaSeleccionada.split('-').map(Number);
-    const fecha = new Date(year, month - 1, day, ahora.getHours(), ahora.getMinutes(), ahora.getSeconds(), ahora.getMilliseconds());
-    
     // Formatear la fecha para Argentina
     const fechaFormateada = fecha.toLocaleString('es-AR', {
       timeZone: 'America/Argentina/Buenos_Aires',

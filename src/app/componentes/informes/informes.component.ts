@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Chart, registerables } from 'chart.js';  // Importamos Chart.js y los elementos necesarios
 import html2canvas from 'html2canvas'; // Importamos html2canvas
 import {  query, where } from '@angular/fire/firestore';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 interface Log {
   usuario: string;
@@ -18,7 +19,24 @@ interface Log {
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './informes.component.html',
-  styleUrls: ['./informes.component.scss']
+  styleUrls: ['./informes.component.scss'],
+  animations: [
+    trigger('slideFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(50px)' }),
+        animate(
+          '1000ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        )
+      ]),
+      transition(':leave', [
+        animate(
+          '1000ms ease-in',
+          style({ opacity: 0, transform: 'translateY(50px)' })
+        )
+      ])
+    ])
+  ]
 })
 export class InformesComponent implements OnInit, AfterViewInit {
   logs: Log[] = []; // Almacenará los logs
@@ -39,7 +57,8 @@ export class InformesComponent implements OnInit, AfterViewInit {
   fechaInicioFinalizados: string | null = null; // Fecha inicial seleccionada
   fechaFinFinalizados: string | null = null; 
   constructor(private firestore: Firestore) {
-    Chart.register(...registerables); // Registramos los elementos de Chart.js
+
+    Chart.register(...registerables); // elementos de Chart.js
   }
 
   async ngOnInit() {
@@ -49,7 +68,7 @@ export class InformesComponent implements OnInit, AfterViewInit {
     await this.obtenerDatosTurnos();
     this.generarDatosGrafico();
     if (this.chartData) {
-      this.createChart();  // Llamamos a la función que genera el gráfico
+      this.createChart();  //  genera el gráfico
     } else {
       console.log("no se pudo crear");
     }

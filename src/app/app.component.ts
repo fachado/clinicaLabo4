@@ -14,7 +14,23 @@ import { trigger, transition, style, animate } from '@angular/animations';
   imports: [RouterOutlet, NavbarComponent, HomeComponent, FooterComponent, UsuariosComponent,UsuariosComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-
+  animations: [
+    trigger('slideFade', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(50px)' }),
+        animate(
+          '1000ms ease-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        )
+      ]),
+      transition(':leave', [
+        animate(
+          '1000ms ease-in',
+          style({ opacity: 0, transform: 'translateY(50px)' })
+        )
+      ])
+    ])
+  ]
 })
 export class AppComponent {
   title = 'Clinica';

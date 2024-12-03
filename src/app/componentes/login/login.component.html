@@ -1,4 +1,4 @@
-<div class="container d-flex flex-column align-items-center" style="min-height: 100vh;">
+<div class="container d-flex flex-column align-items-center " @fadeInOut style="min-height: 100vh;">
   <!-- Botones de Acceso Rápido -->
   <div class="d-flex justify-content-between mb-3">
     <button (click)="rellenarCuentaAdmin()" class="btn access-button">
@@ -22,7 +22,7 @@
   </div>
 
   <!-- Tarjeta de inicio de sesión -->
-  <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
+  <div class="card shadow-lg" style="width: 100%; max-width: 400px;" @fadeInOut>
     <div class="card-body">
       <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
       <form *ngIf="!isLoading" (ngSubmit)="onLogin()">

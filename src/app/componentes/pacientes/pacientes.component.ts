@@ -8,12 +8,39 @@ import { UserService } from '../../user.service';
 import { map } from 'rxjs';
 import Swal from 'sweetalert2';
 import { UsuarioestiloDirective } from '../../directives/usuarioestilo.directive';
+import { trigger, transition, style, animate, keyframes } from '@angular/animations';
+
 @Component({
   selector: 'app-pacientes',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule,UsuarioestiloDirective],
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.scss']
+  ,
+  animations: [
+    trigger('slideFade', [
+      transition(':enter', [
+        animate(
+          '800ms ease-out',
+          keyframes([
+            style({ opacity: 0, transform: 'translateY(100%)', offset: 0 }),
+            style({ opacity: 0.5, transform: 'translateY(50%)', offset: 0.5 }),
+            style({ opacity: 1, transform: 'translateY(0)', offset: 1 }),
+          ])
+        )
+      ]),
+      transition(':leave', [
+        animate(
+          '600ms ease-in',
+          keyframes([
+            style({ opacity: 1, transform: 'translateY(0)', offset: 0 }),
+            style({ opacity: 0.5, transform: 'translateY(50%)', offset: 0.5 }),
+            style({ opacity: 0, transform: 'translateY(100%)', offset: 1 }),
+          ])
+        )
+      ])
+    ])
+  ]
 })
 export class PacientesComponent {
   usuarios$: Observable<any[]> | undefined;
