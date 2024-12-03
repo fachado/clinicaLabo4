@@ -23,11 +23,16 @@
         <div class="col-md-4 mb-3" *ngFor="let especialista of especialistas">
           
           <p style="text-align: center;"> {{ especialista.nombre }} </p>
-          <button class="btn btn-outline-secondary w-100 py-3 d-flex align-items-center" (click)="onEspecialistaChange(especialista)" >
+          <button 
+          class="btn-custom w-100 p-0" 
+          (click)="onEspecialistaChange(especialista)">
+          <img 
+            [src]="especialista.imagen" 
+            alt="{{ especialista.nombre }}" 
+            style="width: 100%; height: 100%; object-fit: cover;" />
+        </button>
+        
 
-            <img [src]="especialista.imagen" alt="{{ especialista.nombre }}"  style="width: 100%; height: 100%;" />
-           
-          </button>
         </div>
       </div>
     </div>
@@ -37,7 +42,7 @@
       <h3 class="mb-3" style="color: #4A90E2;">Selecciona una Fecha</h3>
       <div class="row">
         <div class="col-md-3 mb-3" *ngFor="let fecha of fechasDisponibles">
-          <button class="btn btn-info w-100 py-3 text-white" (click)="onFechaChange(fecha)" style="border-radius: 10px; background-color: #66c2ff;">
+          <button class="btn-custom w-100 p-0 text-white" (click)="onFechaChange(fecha)" style="border-radius: 10px; background-color: #66c2ff;">
             {{ fecha }}
           </button>
         </div>

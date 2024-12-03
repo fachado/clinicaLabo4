@@ -9,13 +9,13 @@ export class UserRoleColorPipe implements PipeTransform {
   transform(rol: string): string {
     switch (rol.toLowerCase()) {
       case 'admin':
-        return 'text-danger'; // Color rojo para admin
+        return 'text-danger'; 
       case 'especialista':
-        return 'text-primary'; // Color verde para especialista
+        return 'text-primary'; 
       case 'paciente':
-        return 'text-warning'; // Color azul para paciente
+        return 'text-warning'; 
       default:
-        return 'text-secondary'; // Color por defecto
+        return 'text-secondary'; 
     }
   }
 }

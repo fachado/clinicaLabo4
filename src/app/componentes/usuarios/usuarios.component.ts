@@ -56,10 +56,12 @@ mostrarComponente: boolean  = true;
     const datosExcel = turnosUsuario.map(turno => ({
       Especialista: turno.especialista,
       Especialidad: turno.especialidad,
+      EstadoTurno: turno.estado,
+
       Paciente: turno.paciente,
       Fecha: turno.horario.fecha,
       HoraInicio: turno.horario.horaInicio,
-      HoraFin: turno.horario.HoraFin,
+      HoraFin: turno.horario.horaFin,
       Altura: turno.HistoriaClinica?.altura || 'N/A',
       Peso: turno.HistoriaClinica?.peso || 'N/A',
       Presión: turno.HistoriaClinica?.presion || 'N/A',

@@ -18,7 +18,7 @@ export class EstadoClasePipe implements PipeTransform {
       case 'pendiente':
         return 'bg-warning text-dark';
       default:
-        return 'bg-secondary'; // por defecto
+        return 'bg-secondary'; 
     }
   }
 

@@ -1,4 +1,22 @@
-/* solicitar-turno.component.scss */
+.btn-custom {
+  aspect-ratio: 4/2;
+  overflow: hidden;
+  border-radius: 10px;
+  display: block;
+  border: 2px solid #ccc; /* Borde estándar */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Suavidad */
+}
+
+.btn-custom:hover {
+  transform: translateY(2px) scale(0.98); /* Efecto presionado */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  border-color: #007bff; /* Cambiar color del borde al hacer hover */
+}
+
+.btn-custom:active {
+  transform: translateY(4px) scale(0.95); /* Más presionado al hacer click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
 .especialidad-button {
   background-size: cover;
   background-position: center;
@@ -44,7 +62,7 @@
   }
   
   .especialidad-button:hover, .profesional-button:hover, .fecha-button:hover, .horario-button:hover {
-    transform: scale(1.05);
+    transform: scale(1.10);
   }
   
   .profesional-button .profesional-info {

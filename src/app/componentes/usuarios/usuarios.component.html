@@ -70,7 +70,7 @@
   </div>
   <div *ngIf="  usuarios$  | async as usuarios " >
     <div *ngFor="let usuario of usuarios" class="d-inline-block">
-      <a *ngIf="this.rolSeleccionado==='paciente'"  class="btn btn-outline-primary p-0 m-2 rounded-circle" style="width: 80px; height: 80px;">
+      <a *ngIf="this.rolSeleccionado==='paciente'" (click)="descargarTurnos(usuario)" class="btn btn-outline-primary p-0 m-2 rounded-circle" style="width: 80px; height: 80px;">
         <img [src]="usuario.imagenes[0]" alt="{{ usuario.nombre }}" class="rounded-circle" 
              style="width: 100%; height: 100%; object-fit: cover;" appZoomImagen />
       </a>

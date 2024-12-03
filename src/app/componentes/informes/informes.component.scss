@@ -14,9 +14,11 @@
 .table-container {
   max-width: 800px; /* Limita el ancho máximo */
   margin: 0 auto; /* Centra la tabla */
-  min-height: 200px; /* Altura mínima */
-  overflow-y: auto; /* Permite el scroll vertical */
+  min-height: 300px;  /* Establece una altura mínima */
+  max-height: 400px;  /* Puedes ajustar este valor según el espacio disponible */
+  overflow-y: auto; 
 }
+
 
 /* Estilo adicional para la tabla */
 

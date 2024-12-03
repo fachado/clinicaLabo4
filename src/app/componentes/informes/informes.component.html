@@ -113,27 +113,28 @@
 
     <!-- Mostrar logs -->
 <!-- Mostrar logs -->
-  <h2 class="text-center" >Logs de los usuarios </h2>
-  <div *ngIf="!loading && logs.length > 0">
-    <div class="table-container">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let log of logs">
-              <td>{{ log.usuario }}</td>
-              <td>{{ log.fecha }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<h2 class="text-center">Logs de los usuarios</h2>
+<div *ngIf="!loading && logs.length > 0">
+  <div class="table-container">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of logs">
+            <td>{{ log.usuario }}</td>
+            <td>{{ log.fecha }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+</div>
+
 
 
 
