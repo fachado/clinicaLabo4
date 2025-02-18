@@ -23,11 +23,11 @@ interface Horario {
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
-        style({ transform: 'translateX(100%)' }), // Comienza fuera de la pantalla (derecha)
-        animate('800ms ease-out', style({ transform: 'translateX(0)' })) // Se desliza hacia la posición original
+        style({ transform: 'translateX(100%)' }), 
+        animate('800ms ease-out', style({ transform: 'translateX(0)' })) 
       ]),
       transition(':leave', [
-        animate('800ms ease-in', style({ transform: 'translateX(-100%)' })) // Se desliza fuera de la pantalla (derecha)
+        animate('800ms ease-in', style({ transform: 'translateX(-100%)' })) 
       ])
     ])
   ]

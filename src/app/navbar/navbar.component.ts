@@ -9,7 +9,10 @@ import { UserService } from '../user.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons'; // Importar el ícono
 import { trigger, group, style, animate, transition, query, animateChild,  } from '@angular/animations';
 import { UserRoleColorPipe } from '../pipes/user-role-color.pipe';
-
+import { TranslateService } from '../translate.service';
+interface Translations {
+  [key: string]: { [key: string]: string };
+}
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -30,14 +33,77 @@ import { UserRoleColorPipe } from '../pipes/user-role-color.pipe';
 
 })
 export class NavbarComponent {
-
+  private translations: Translations = {
+    es: {
+      INICIO: "Inicio",
+      TURNOS: "Turnos",
+      USUARIOS: "Usuarios",
+      SOLICITAR_TURNO: "Solicitar un turno",
+      MIS_TURNOS: "Mis turnos",
+      PACIENTES: "Pacientes",
+      INFORMES: "Informes",
+      BIENVENIDO: "Bienvenido",
+      MI_PERFIL: "Mi Perfil",
+      SALIR: "Salir",
+      INICIAR_SESION: "Iniciar Sesión",
+      REGISTRARSE: "Registrarse"
+    },
+    en: {
+      INICIO: "Home",
+      TURNOS: "Appointments",
+      USUARIOS: "Users",
+      SOLICITAR_TURNO: "Request an appointment",
+      MIS_TURNOS: "My appointments",
+      PACIENTES: "Patients",
+      INFORMES: "Reports",
+      BIENVENIDO: "Welcome",
+      MI_PERFIL: "My Profile",
+      SALIR: "Logout",
+      INICIAR_SESION: "Login",
+      REGISTRARSE: "Register"
+    },
+    pt: {
+      INICIO: "Início",
+      TURNOS: "Consultas",
+      USUARIOS: "Usuários",
+      SOLICITAR_TURNO: "Solicitar uma consulta",
+      MIS_TURNOS: "Minhas consultas",
+      PACIENTES: "Pacientes",
+      INFORMES: "Relatórios",
+      BIENVENIDO: "Bem-vindo",
+      MI_PERFIL: "Meu Perfil",
+      SALIR: "Sair",
+      INICIAR_SESION: "Entrar",
+      REGISTRARSE: "Registrar"
+    }
+  };
   isLoggedIn: boolean = false;
   userEmail: string | null = null;
   userType: string | null = null;  // Almacenamos el tipo de usuario
   faSignOutAlt = faSignOutAlt; // Referencia al ícono
   faUser=faUser;
   usuario: any;
-  constructor(private router: Router, private auth: Auth, private userService: UserService) {
+
+  currentLanguage: 'es' | 'en' | 'pt' = 'es';
+
+
+  ngOnInit() {
+    this.translateService.currentLanguage.subscribe((language: string) => {
+      if (language === 'es' || language === 'en' || language === 'pt') {
+        this.currentLanguage = language;
+      }
+    });
+  }
+  
+  changeLanguage(language: string) {
+    console.log(language);
+    
+    this.translateService.changeLanguage(language);
+  }
+  getTranslation(key: string): string {
+    return this.translations[this.currentLanguage][key] || key;
+  }
+  constructor(private router: Router, private auth: Auth, private userService: UserService,private translateService: TranslateService) {
     onAuthStateChanged(this.auth, (user) => {
       if (user?.emailVerified) {
         this.isLoggedIn = true;

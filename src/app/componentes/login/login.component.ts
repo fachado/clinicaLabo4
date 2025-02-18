@@ -10,7 +10,15 @@ import { UsuariosService } from '../../usuarios.service';
 import { map, Observable } from 'rxjs';
 import { collection, addDoc, updateDoc, getDocs, query, where } from '@angular/fire/firestore';
 import { UserService } from '../../user.service';
+import { TranslateLoader, TranslateModule, TranslateParser } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateService } from '../../translate.service';
 
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -19,12 +27,12 @@ import { UserService } from '../../user.service';
   styleUrl: './login.component.scss',
   animations: [
     trigger('fadeInOut', [
-      transition(':enter', [ // Animación de entrada
-        style({ opacity: 0, transform: 'translateX(-10%)' }), // Estado inicial
-        animate('1000ms ease-out', style({ opacity: 1, transform: 'translateX(0)' })) // Estado final
+      transition(':enter', [ 
+        style({ opacity: 0, transform: 'translateX(-10%)' }), 
+        animate('1000ms ease-out', style({ opacity: 1, transform: 'translateX(0)' })) 
       ]),
-      transition(':leave', [ // Animación de salida
-        animate('1000ms ease-in', style({ opacity: 0, transform: 'translateX(-10%)' })) // Estado final
+      transition(':leave', [ 
+        animate('1000ms ease-in', style({ opacity: 0, transform: 'translateX(-10%)' })) 
       ])
     ])
   ]
@@ -36,14 +44,57 @@ export class LoginComponent {
   isLoading: boolean = false;  // Variable para controlar el estado de carga
   rolSeleccionado: string='especialista';
   usuarios$: Observable<any[]> | undefined;
+  language: 'es' | 'en' | 'pt' = 'es'; // Idioma por defecto
+  ngOnInit() {
+    this.translateService.currentLanguage.subscribe((language: string) => {
+      if (language === 'es' || language === 'en' || language === 'pt') {
+        this.language = language;
+      }
+    });
+  }
+  translations = {
+    es: {
+      loginTitle: "Iniciar sesión",
+      email: "Correo electrónico",
+      password: "Contraseña",
+      loginButton: "Iniciar sesión",
+      loading: "Cargando..."
+    },
+    en: {
+      loginTitle: "Log In",
+      email: "Email",
+      password: "Password",
+      loginButton: "Log In",
+      loading: "Loading..."
+    },
+    pt: {
+      loginTitle: "Entrar",
+      email: "E-mail",
+      password: "Senha",
+      loginButton: "Entrar",
+      loading: "Carregando..."
+    }
+  };
+
+  get t() {
+    console.log(this.language);
+
+    return this.translations[this.language];
+    
+  }
 
   constructor(
     private router: Router,
     private auth: Auth,
     private firestore:Firestore,
     private userService:UserService,
+    private translateService: TranslateService
+  ) {   
+  }
 
-  ) {}
+  changeLanguage(language: string) {
+    this.translateService.changeLanguage(language);
+  }
 
   rellenarCuentaAdmin(){
     this.email="ignaciofachado13@gmail.com";
@@ -109,9 +160,8 @@ export class LoginComponent {
                 text: 'Tu cuenta esta inhabilitado. No puedes iniciar sesión por ahora.',
               });
   
-              // Cerrar sesión inmediatamente
               await signOut(this.auth);
-              this.router.navigate(['/login']); // Redirigir a la página de login
+              this.router.navigate(['/login']); 
               return;
             }
             this.userService.guardarLogs();

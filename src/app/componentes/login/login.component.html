@@ -1,4 +1,8 @@
+
+     <!-- Selector de idioma en la esquina superior derecha -->
+
 <div class="container d-flex flex-column align-items-center " @fadeInOut style="min-height: 100vh;">
+
   <!-- Botones de Acceso Rápido -->
   <div class="d-flex justify-content-between mb-3">
     <button (click)="rellenarCuentaAdmin()" class="btn access-button">
@@ -20,45 +24,48 @@
       <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/especialista%2Fvejajey550%40merotx.com%2Fespecialista2.jpg?alt=media&token=26f87ace-8b4b-4ab4-925c-2232004e4b2d" alt="Especialista 2" />
     </button>
   </div>
-
-  <!-- Tarjeta de inicio de sesión -->
-  <div class="card shadow-lg" style="width: 100%; max-width: 400px;" @fadeInOut>
-    <div class="card-body">
-      <h3 class="card-title text-center mb-4">Iniciar sesión</h3>
-      <form *ngIf="!isLoading" (ngSubmit)="onLogin()">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input
-            type="email"
-            [(ngModel)]="email"
-            name="email"
-            id="email"
-            class="form-control"
-            placeholder="Correo electrónico"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Contraseña</label>
-          <input
-            type="password"
-            [(ngModel)]="password"
-            name="password"
-            id="password"
-            class="form-control"
-            placeholder="Contraseña"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
-      </form>
-
-      <!-- Spinner de carga -->
-      <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Cargando...</span>
+  <div class="container d-flex flex-column align-items-center position-relative" @fadeInOut style="min-height: 100vh; width: 100%;">
+ 
+  
+    <!-- Tarjeta de inicio de sesión -->
+    <div class="card shadow-lg" style="width: 100%; max-width: 400px;" @fadeInOut>
+      <div class="card-body">
+        <h3 class="card-title text-center mb-4">{{ t.loginTitle }}</h3>
+        <form *ngIf="!isLoading" (ngSubmit)="onLogin()">
+          <div class="mb-3">
+            <label for="email" class="form-label">{{ t.email }}</label>
+            <input
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              id="email"
+              class="form-control"
+              placeholder="{{ t.email }}"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">{{ t.password }}</label>
+            <input
+              type="password"
+              [(ngModel)]="password"
+              name="password"
+              id="password"
+              class="form-control"
+              placeholder="{{ t.password }}"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">{{ t.loginButton }}</button>
+        </form>
+  
+        <!-- Spinner de carga -->
+        <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">{{ t.loading }}</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  

@@ -1,87 +1,90 @@
-<!-- Navbar Component (app.component.html) -->
+<!-- Navbar Component -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" [@slideInOut]>
   <div class="container">
-    <!-- Logo y Nombre de la Clínica -->
     <a class="navbar-brand d-flex align-items-center" routerLink="/">
-      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/pngwing.com.png?alt=media&token=ebc82d77-0546-412e-876e-12897ee267fc" alt="Logo de Trafalgar" width="40" height="40" class="me-2">
+      <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/pngwing.com.png?alt=media&token=ebc82d77-0546-412e-876e-12897ee267fc" 
+           alt="Logo de Trafalgar" width="40" height="40" class="me-2">
       <span class="fw-bold text-dark">Trafalgar</span>
     </a>
 
-    <!-- Botón para Mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Enlaces de Navegación -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/">Inicio</a>
+          <a class="nav-link" routerLink="/">{{ getTranslation('INICIO') }}</a>
         </li>
         <div *ngIf="isAdmin()">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/turnos">Turnos</a>
+            <a class="nav-link" routerLink="/turnos">{{ getTranslation('TURNOS') }}</a>
           </li>
         </div>
-   
         <div *ngIf="isAdmin()">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/usuarios">usuarios</a>
+            <a class="nav-link" routerLink="/usuarios">{{ getTranslation('USUARIOS') }}</a>
           </li>
         </div>
-
-        <div >
-          <li class="nav-item" *ngIf="isAdmin() || esPaciente() ">
-            <a class="nav-link" routerLink="/solicitarTurno">Solicitar un turno</a>
+        <div *ngIf="isAdmin() || esPaciente()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/solicitarTurno">{{ getTranslation('SOLICITAR_TURNO') }}</a>
           </li>
         </div> 
-        <div >
-          <li class="nav-item " *ngIf="isEspecialista() ||esPaciente()">
-            <a class="nav-link" routerLink="/misTurnos">Mis turnos</a>
+        <div *ngIf="isEspecialista() || esPaciente()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/misTurnos">{{ getTranslation('MIS_TURNOS') }}</a>
           </li>
         </div>
         <div *ngIf="isEspecialista()">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/pacientes">Pacientes</a>
+            <a class="nav-link" routerLink="/pacientes">{{ getTranslation('PACIENTES') }}</a>
           </li>
         </div>
         <div *ngIf="isAdmin()">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/informes">Informes</a>
+            <a class="nav-link" routerLink="/informes">{{ getTranslation('INFORMES') }}</a>
           </li>
         </div>
       </ul>
 
+      <ng-container *ngIf="isLoggedIn; else loggedOut">
+        <div class="d-flex align-items-center justify-content-end ms-auto gap-3">
+          <span class="fw-bold" [ngClass]="usuario.userType | userRoleColor">
+            {{ getTranslation('BIENVENIDO') }}, {{ usuario.nombre }}!
+          </span>
 
-      <!-- Información de usuario si está logueado -->
-     <!-- Información de usuario si está logueado -->
-<ng-container *ngIf="isLoggedIn; else loggedOut">
-  <div class="d-flex align-items-center justify-content-end ms-auto gap-3">
-    <!-- Saludo al usuario con color dinámico según rol -->
-    <span class="fw-bold" [ngClass]="usuario.userType | userRoleColor">Bienvenido, {{ usuario.nombre }}!</span>
+          <a class="btn btn-outline-primary btn-sm d-flex align-items-center" routerLink="/perfil">
+            <fa-icon [icon]="faUser" class="me-2"></fa-icon> {{ getTranslation('MI_PERFIL') }}
+          </a>
 
-    <!-- Botón de Mi Perfil -->
-    <a class="btn btn-outline-primary btn-sm d-flex align-items-center" routerLink="/perfil">
-      <fa-icon [icon]="faUser" class="me-2"></fa-icon> Mi Perfil
-    </a>
+          <a (click)="logout()" class="btn btn-outline-danger btn-sm d-flex align-items-center">
+            <fa-icon [icon]="faSignOutAlt" class="me-2"></fa-icon> {{ getTranslation('SALIR') }}
+          </a>
+        </div>
+      </ng-container>
 
-    <!-- Botón de Salir -->
-    <a (click)="logout()" class="btn btn-outline-danger btn-sm d-flex align-items-center">
-      <fa-icon [icon]="faSignOutAlt" class="me-2"></fa-icon> Salir
-    </a>
-  </div>
-</ng-container>
-
-      
-      
-      <!-- Enlaces de autenticación si no está logueado -->
       <ng-template #loggedOut>
         <div class="d-flex ms-auto">
-          <a class="btn btn-outline-primary btn-sm me-2" routerLink="/login">Iniciar Sesión</a>
-          <a class="btn btn-primary btn-sm" routerLink="/registro">Registrarse</a>
+          <a class="btn btn-outline-primary btn-sm me-2" routerLink="/login">{{ getTranslation('INICIAR_SESION') }}</a>
+          <a class="btn btn-primary btn-sm" routerLink="/registro">{{ getTranslation('REGISTRARSE') }}</a>
         </div>
       </ng-template>
-      
     </div>
+
+    <!-- Selector de idioma -->
+    <div class="language-selector position-absolute top-0 end-0 p-3">
+      <button (click)="changeLanguage('es')" class="btn btn-outline-secondary mx-1">
+        <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com%20(1).png?alt=media&token=e4c1df72-b9c2-4fb4-88cf-68c4fa8aef5f" alt="Español" width="30" height="24">
+      </button>
+      <button (click)="changeLanguage('en')" class="btn btn-outline-secondary mx-1">
+        <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com%20(2).png?alt=media&token=512a99e6-4e6f-4664-a71f-1887bd0251d7" alt="English" width="24" height="24">
+      </button>
+      <button (click)="changeLanguage('pt')" class="btn btn-outline-secondary mx-1">
+        <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com.png?alt=media&token=f29a14c3-77ac-4372-b477-63f162c31f38" alt="Português" width="24" height="24">
+      </button>
+    </div>
+
   </div>
 </nav>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../user.service';
 import { Observable } from 'rxjs';
-import { CommonModule } from '@angular/common';  // Ya lo tienes importado
+import { CommonModule } from '@angular/common';  
 import { UsuariosService } from '../../usuarios.service';
 import { map } from 'rxjs/operators';
 import { RegisterComponent } from '../register/register.component';
@@ -16,17 +16,17 @@ import { ZoomImagenDirective } from '../../directives/zoom-imagen.directive';
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule,RegisterComponent,FormsModule,ZoomImagenDirective],  // Ya lo tienes importado
+  imports: [CommonModule,RegisterComponent,FormsModule,ZoomImagenDirective],  
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss'],  // Asegúrate de que el nombre del archivo sea correcto
+  styleUrls: ['./usuarios.component.scss'],  
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
-        style({ transform: 'translateX(100%)' }), // Comienza fuera de la pantalla (derecha)
-        animate('300ms ease-out', style({ transform: 'translateX(0)' })) // Se desliza hacia la posición original
+        style({ transform: 'translateX(100%)' }), 
+        animate('300ms ease-out', style({ transform: 'translateX(0)' })) 
       ]),
       transition(':leave', [
-        animate('300ms ease-in', style({ transform: 'translateX(100%)' })) // Se desliza fuera de la pantalla (derecha)
+        animate('300ms ease-in', style({ transform: 'translateX(100%)' })) 
       ])
     ])
   ]
@@ -35,7 +35,7 @@ export class UsuariosComponent {
   usuarios$: Observable<any[]> | undefined;
   rolSeleccionado: string = 'paciente'; // Rol predeterminado
   formVisible: boolean = false; // Control de visibilidad del formulario
-  turnos: any[] = []; // Cambia 'any' por un modelo de datos si tienes uno definido.
+  turnos: any[] = []; 
   historiaClinicaVisible:boolean  = false;
 mostrarComponente: boolean  = true;
   constructor(private usuariosService: UsuariosService, private turnosService:TurnosService) {}
@@ -99,18 +99,16 @@ mostrarComponente: boolean  = true;
 
   verHistoriaClinica(usuario: any): void {
     const turnosPaciente = this.turnos.filter(turno => turno.paciente === usuario.nombre && turno.HistoriaClinica);
-    console.log("turnos", turnosPaciente);
-  
-    // Generamos el contenido para mostrar en el Swal
+
     const contenido = turnosPaciente.map(turno => {
-      // Creamos los datos dinámicos si existen
-      const dinamicosContenido = turno.HistoriaClinica.dinamicos.map((dinamico: { clave: any; valor: any; }) => `
-        <div class="row mb-2">
-          <p><strong></strong> ${dinamico.clave}: ${dinamico.valor} </p>
-        </div>
-      `).join('');
-  
-      // Generamos la tarjeta con los datos estáticos y dinámicos
+      const dinamicosContenido = Array.isArray(turno.HistoriaClinica.dinamicos) 
+        ? turno.HistoriaClinica.dinamicos.map((dinamico: { clave: any; valor: any; }) => `
+            <div class="row mb-2">
+              <p><strong></strong> ${dinamico.clave}: ${dinamico.valor} </p>
+            </div>
+          `).join('') 
+        : '';
+    
       return `
         <div class="card mb-3" style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
           <div class="card-header" style="font-weight: bold; background-color: #f1f1f1; border-bottom: 2px solid #ddd;">
@@ -121,30 +119,21 @@ mostrarComponente: boolean  = true;
             <p><strong>Paciente:</strong> ${turno.paciente}</p>
             <p><strong>Fecha:</strong> ${turno.horario.fecha}</p>
             <p><strong>Hora:</strong> ${turno.horario.horaInicio} - ${turno.horario.horaFin}</p>
-            
             <div style="border-top: 1px solid #ddd; margin-top: 10px; padding-top: 10px;">
               <p><strong>Altura:</strong> ${turno.HistoriaClinica.altura} cm</p>
               <p><strong>Peso:</strong> ${turno.HistoriaClinica.peso} kg</p>
               <p><strong>Presión:</strong> ${turno.HistoriaClinica.presion}</p>
               <p><strong>Temperatura:</strong> ${turno.HistoriaClinica.temperatura} °C</p>
-
-                        <div class="card-header" style="font-weight: bold; background-color: #f1f1f1; border-bottom: 2px solid #ddd;">
-  <p><strong>Datos dinamicos: </strong> </p>
-
-              ${dinamicosContenido}
-          </div>
-              
-
+              <div class="card-header" style="font-weight: bold; background-color: #f1f1f1; border-bottom: 2px solid #ddd;">
+                <p><strong>Datos dinámicos:</strong></p>
+                ${dinamicosContenido}
+              </div>
             </div>
-  
-            <!-- Aquí mostramos los datos dinámicos -->
           </div>
         </div>
       `;
     }).join('');
-  
-    console.log("contenido", contenido);
-  
+    
     // Mostramos la historia clínica en un Swal
     Swal.fire({
       title: `Historia Clínica de ${usuario.nombre}`,
@@ -153,11 +142,10 @@ mostrarComponente: boolean  = true;
       focusConfirm: false,
       confirmButtonText: 'Cerrar',
       customClass: {
-        popup: 'swal-popup', // Personaliza el popup si es necesario
+        popup: 'swal-popup',
       },
     });
-  }
-  
+  }    
   
 
   obtenerUsuarios(): void {
