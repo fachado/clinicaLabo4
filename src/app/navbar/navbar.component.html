@@ -67,29 +67,60 @@
           <a (click)="logout()" class="btn btn-outline-danger btn-sm d-flex align-items-center">
             <fa-icon [icon]="faSignOutAlt" class="me-2"></fa-icon> {{ getTranslation('SALIR') }}
           </a>
-        </div>
+          <!-- Selector de idioma -->
+      <div class="d-flex align-items-center gap-2">
+        <button (click)="changeLanguage('es')" class="btn btn-outline-secondary p-1">
+          <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com%20(1).png?alt=media&token=e4c1df72-b9c2-4fb4-88cf-68c4fa8aef5f" 
+               alt="Español" width="30" height="24">
+        </button>
+        <button (click)="changeLanguage('en')" class="btn btn-outline-secondary p-1">
+          <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com%20(2).png?alt=media&token=512a99e6-4e6f-4664-a71f-1887bd0251d7" 
+               alt="English" width="24" height="24">
+        </button>
+        <button (click)="changeLanguage('pt')" class="btn btn-outline-secondary p-1">
+          <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com.png?alt=media&token=f29a14c3-77ac-4372-b477-63f162c31f38" 
+               alt="Português" width="24" height="24">
+        </button>
+      </div>
+    </div>
       </ng-container>
 
       <ng-template #loggedOut>
-        <div class="d-flex ms-auto">
-          <a class="btn btn-outline-primary btn-sm me-2" routerLink="/login">{{ getTranslation('INICIAR_SESION') }}</a>
-          <a class="btn btn-primary btn-sm" routerLink="/registro">{{ getTranslation('REGISTRARSE') }}</a>
+        <div class="d-flex justify-content-between align-items-center w-100 flex-wrap p-2">
+          
+          <!-- Contenedor de botones de Login y Registro -->
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <a class="btn btn-outline-primary btn-sm" routerLink="/login">
+              {{ getTranslation('INICIAR_SESION') }}
+            </a>
+            <a class="btn btn-primary btn-sm" routerLink="/registro">
+              {{ getTranslation('REGISTRARSE') }}
+            </a>
+          </div>
+      
+          <!-- Selector de idioma -->
+          <div class="d-flex align-items-center gap-2">
+            <button (click)="changeLanguage('es')" class="btn btn-outline-secondary p-1">
+              <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com%20(1).png?alt=media&token=e4c1df72-b9c2-4fb4-88cf-68c4fa8aef5f" 
+                   alt="Español" width="30" height="24">
+            </button>
+            <button (click)="changeLanguage('en')" class="btn btn-outline-secondary p-1">
+              <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com%20(2).png?alt=media&token=512a99e6-4e6f-4664-a71f-1887bd0251d7" 
+                   alt="English" width="24" height="24">
+            </button>
+            <button (click)="changeLanguage('pt')" class="btn btn-outline-secondary p-1">
+              <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com.png?alt=media&token=f29a14c3-77ac-4372-b477-63f162c31f38" 
+                   alt="Português" width="24" height="24">
+            </button>
+          </div>
+      
         </div>
       </ng-template>
+      
     </div>
 
     <!-- Selector de idioma -->
-    <div class="language-selector position-absolute top-0 end-0 p-3">
-      <button (click)="changeLanguage('es')" class="btn btn-outline-secondary mx-1">
-        <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com%20(1).png?alt=media&token=e4c1df72-b9c2-4fb4-88cf-68c4fa8aef5f" alt="Español" width="30" height="24">
-      </button>
-      <button (click)="changeLanguage('en')" class="btn btn-outline-secondary mx-1">
-        <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com%20(2).png?alt=media&token=512a99e6-4e6f-4664-a71f-1887bd0251d7" alt="English" width="24" height="24">
-      </button>
-      <button (click)="changeLanguage('pt')" class="btn btn-outline-secondary mx-1">
-        <img src="https://firebasestorage.googleapis.com/v0/b/fbst-8c19a.appspot.com/o/klipartz.com.png?alt=media&token=f29a14c3-77ac-4372-b477-63f162c31f38" alt="Português" width="24" height="24">
-      </button>
-    </div>
+
 
   </div>
 </nav>
