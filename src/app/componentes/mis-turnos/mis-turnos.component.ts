@@ -616,43 +616,43 @@ console.log('Pregunta Fumador:', preguntaFumador, 'Es Fumador:', esFumador);
   }
   
 
-
-
   completarEncuesta(turnoId: string): void {
+    let estrellasSeleccionadas = 0; // ✅ Variable declarada globalmente dentro de la función
+  
     Swal.fire({
       title: 'Completar Encuesta',
       html: `
         <div class="mb-3">
-          <label for="puntualidad" class="form-label">Puntualidad del especialista:</label>
-          <select id="puntualidad" class="form-control">
-            <option value="" disabled selected>Seleccione una opción</option>
-            <option value="Muy satisfecho">Muy satisfecho</option>
-            <option value="Satisfecho">Satisfecho</option>
-            <option value="Insatisfecho">Insatisfecho</option>
-          </select>
+          <label for="comentarios" class="form-label">Comentarios sobre la atención:</label>
+          <textarea id="comentarios" class="form-control" rows="3" placeholder="Escribe tu comentario aquí..."></textarea>
         </div>
   
         <div class="mb-3">
-          <label for="atencion" class="form-label">Atención recibida en la clinica:</label>
-          <select id="atencion" class="form-control">
-            <option value="" disabled selected>Seleccione una opción</option>
-            <option value="Muy satisfecho">Muy satisfecho</option>
-            <option value="Satisfecho">Satisfecho</option>
-            <option value="Insatisfecho">Insatisfecho</option>
-          </select>
+          <label class="form-label">Calificación del especialista:</label>
+          <div id="estrellas" class="estrellas-container">
+            ${[...Array(5)].map((_, i) => `<span class="estrella" data-index="${i + 1}">☆</span>`).join('')}
+          </div>
         </div>
   
         <div class="mb-3">
-          <label for="ambiente" class="form-label">Ambiente y comodidad:</label>
-          <select id="ambiente" class="form-control">
-            <option value="" disabled selected>Seleccione una opción</option>
-            <option value="Muy satisfecho">Muy satisfecho</option>
-            <option value="Satisfecho">Satisfecho</option>
-            <option value="Insatisfecho">Insatisfecho</option>
-          </select>
+          <label class="form-label">¿Recomendaría este servicio?</label><br>
+          <input type="radio" name="recomienda" value="Sí"> Sí
+          <input type="radio" name="recomienda" value="No"> No
         </div>
   
-      
+        <div class="mb-3">
+          <label class="form-label">¿Qué aspectos le gustaron?</label><br>
+          <input type="checkbox" name="aspectos" value="Rapidez"> Rapidez<br>
+          <input type="checkbox" name="aspectos" value="Amabilidad"> Amabilidad<br>
+          <input type="checkbox" name="aspectos" value="Limpieza"> Limpieza<br>
+          <input type="checkbox" name="aspectos" value="Comodidad"> Comodidad<br>
+        </div>
+  
+        <div class="mb-3">
+          <label for="satisfaccion" class="form-label">Nivel de satisfacción:</label>
+          <input type="range" id="satisfaccion" min="0" max="10" step="1">
+          <span id="valorSatisfaccion">5</span>
+        </div>
       `,
       showCancelButton: true,
       confirmButtonText: 'Enviar Encuesta',
@@ -662,17 +662,43 @@ console.log('Pregunta Fumador:', preguntaFumador, 'Es Fumador:', esFumador);
         cancelButton: 'btn btn-secondary',
       },
       buttonsStyling: false,
-      preConfirm: () => {
-        const puntualidad = (document.getElementById('puntualidad') as HTMLSelectElement).value;
-        const atencion = (document.getElementById('atencion') as HTMLSelectElement).value;
-        const ambiente = (document.getElementById('ambiente') as HTMLSelectElement).value;
+      didOpen: () => {
+        // ✅ Mostrar el valor del rango dinámicamente
+        const rangeInput = document.getElementById('satisfaccion') as HTMLInputElement;
+        const spanValor = document.getElementById('valorSatisfaccion')!;
+        rangeInput.addEventListener('input', () => {
+          spanValor.innerText = rangeInput.value;
+        });
   
-        if (!puntualidad || !atencion || !ambiente) {
+        // ✅ Sistema de estrellas mejorado
+        const estrellas = document.querySelectorAll('.estrella');
+        estrellas.forEach((estrella) => {
+          estrella.addEventListener('click', (event: any) => {
+            estrellasSeleccionadas = parseInt(event.target.getAttribute('data-index'), 10);
+            estrellas.forEach((e, i) => {
+              e.innerHTML = i < estrellasSeleccionadas ? '★' : '☆';
+            });
+          });
+        });
+      },
+      preConfirm: () => {
+        const comentarios = (document.getElementById('comentarios') as HTMLTextAreaElement).value;
+        const recomienda = (document.querySelector('input[name="recomienda"]:checked') as HTMLInputElement)?.value;
+        const aspectos = Array.from(document.querySelectorAll('input[name="aspectos"]:checked')).map((el: any) => el.value);
+        const satisfaccion = (document.getElementById('satisfaccion') as HTMLInputElement).value;
+  
+        if (!recomienda || aspectos.length === 0) {
           Swal.showValidationMessage('Debe responder todas las preguntas obligatorias.');
           return null;
         }
   
-        return { puntualidad, atencion, ambiente };
+        return {
+          comentarios,
+          estrellas: estrellasSeleccionadas, // ✅ Ahora funciona correctamente
+          recomienda,
+          aspectos,
+          satisfaccion
+        };
       },
     }).then((result) => {
       if (result.isConfirmed && result.value) {

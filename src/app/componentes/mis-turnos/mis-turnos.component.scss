@@ -76,32 +76,4 @@
       overflow-x: auto;
     }
   }
-  .badge-custom {
-    display: inline-block;
-    padding: 0.5em 1em; /* Ajusta el tamaño del badge */
-    border-radius: 50%; /* Hace el badge circular */
-    color: #fff; /* Texto blanco */
-    text-align: center;
-    font-size: 0.9rem; /* Ajusta el tamaño del texto */
-    font-weight: bold; /* Resalta el texto */
-    width: 3rem; /* Tamaño del círculo */
-    height: 3rem; /* Tamaño del círculo */
-    line-height: 2rem; /* Centra el texto verticalmente */
-    vertical-align: middle;
-  }
-  .bg-success {
-    background-color: #28a745 !important;
-  }
-  
-  .bg-warning {
-    background-color: #ffc107 !important;
-  }
-  
-  .bg-danger {
-    background-color: #dc3545 !important;
-  }
-  
-  .bg-info {
-    background-color: #17a2b8 !important;
-  }
   

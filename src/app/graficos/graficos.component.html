@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <h2>📊 Informes Estadísticos</h2>
+
+  <!-- Contenedor principal -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li><a href="javascript:void(0);" (click)="setActiveTab('estadisticas')" [class.active]="activeTab === 'estadisticas'">Estadísticas</a></li>
+        <li><a href="javascript:void(0);" (click)="setActiveTab('pacientes')" [class.active]="activeTab === 'pacientes'">Pacientes</a></li>
+        <li><a href="javascript:void(0);" (click)="setActiveTab('graficos')" [class.active]="activeTab === 'graficos'">Gráficos</a></li>
+      </ul>
+    </div>
+
+    <!-- Contenido -->
+    <div class="content">
+      <!-- Sección de Estadísticas -->
+      <div *ngIf="activeTab === 'estadisticas'" class="tab-content">
+        <h4>📌 Cantidad de Visitas</h4>
+        <canvas id="chartVisitas"></canvas>
+      </div>
+
+      <!-- Sección de Pacientes -->
+      <div *ngIf="activeTab === 'pacientes'" class="tab-content">
+        <div class="paciente-container mb-4">
+          <label for="paciente">👤 Seleccionar Paciente:</label>
+          <select id="paciente" (change)="seleccionarPaciente($event)" class="form-select">
+            <option value="" disabled selected>Selecciona un paciente</option>
+            <option *ngFor="let paciente of pacientes" [value]="paciente.nombre">
+              {{ paciente.nombre }}
+            </option>
+          </select>
+        </div>
+  
+        <h3>📅 Turnos del Paciente Seleccionado</h3>
+        <ul class="list-group">
+          <li *ngFor="let turno of turnos" class="list-group-item">
+            <strong>Especialidad:</strong> {{ turno.especialidad }} |
+            <strong>Fecha:</strong> {{ turno.horario.fecha }} | {{ turno.horario.horaInicio }} {{ turno.horario.horaFin}} |
+            <strong>Estado:</strong> {{ turno.estado }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Sección de Gráficos -->
+      <div *ngIf="activeTab === 'graficos'" class="tab-content">
+        <div class="row">
+          <div class="col-md-6">
+            <h4>👥 Pacientes por Especialidad</h4>
+            <canvas id="chartPacientes"></canvas>
+            <button (click)="descargarGrafico('chartPacientes')" class="btn">Descargar Imagen</button>
+          </div>
+  
+          <div class="col-md-6">
+            <h4>🏥 Médicos por Especialidad</h4>
+            <canvas id="chartMedicos"></canvas>
+            <button (click)="descargarGrafico('chartMedicos')" class="btn">Descargar Imagen</button>
+          </div>
+  
+          <div class="col-md-6">
+            <h4>📈 Nivel de Satisfacción Promedio</h4>
+            <canvas id="chartSatisfaccion"></canvas>
+          </div>
+  
+          <div class="col-md-6">
+            <h4>✅ Recomendaciones</h4>
+            <canvas id="chartRecomendaciones"></canvas>
+          </div>
+  
+          <div class="col-md-6">
+            <h4>🌟 Aspectos Más Valorados</h4>
+            <canvas id="chartAspectos"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

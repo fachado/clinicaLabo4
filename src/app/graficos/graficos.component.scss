@@ -1,0 +1,116 @@
+/* Estilos generales */
+.container {
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  /* Contenedor principal */
+  .main-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 200px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        margin: 10px 0;
+        a {
+          text-decoration: none;
+          color: #333;
+          font-weight: bold;
+          padding: 10px;
+          display: block;
+          border-radius: 5px;
+  
+          &:hover {
+            background-color: #007bff;
+            color: white;
+          }
+  
+          &.active {
+            background-color: #007bff;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  
+  /* Contenido */
+  .content {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+  
+  /* Estilos de los gráficos */
+  .tab-content {
+    margin-top: 20px;
+  }
+  
+  .tab-content h4 {
+    margin-bottom: 20px;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .col-md-6 {
+    width: 48%;
+    margin-bottom: 20px;
+  }
+  
+  canvas {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Estilos del selector de paciente */
+  .paciente-container {
+    margin-bottom: 20px;
+  }
+  
+  .form-select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+  }
+  
+  /* Estilos de la lista de turnos */
+  .list-group {
+    margin-top: 20px;
+  }
+  
+  .list-group-item {
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Botón de descarga */
+  .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  

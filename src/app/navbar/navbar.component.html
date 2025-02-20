@@ -47,6 +47,11 @@
             <a class="nav-link" routerLink="/informes">{{ getTranslation('INFORMES') }}</a>
           </li>
         </div>
+        <div *ngIf="isAdmin()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/estadisticas">{{ getTranslation('INFORMES') }}</a>
+          </li>
+        </div>
       </ul>
 
       <ng-container *ngIf="isLoggedIn; else loggedOut">
