@@ -16,8 +16,23 @@
     <div class="content">
       <!-- Sección de Estadísticas -->
       <div *ngIf="activeTab === 'estadisticas'" class="tab-content">
+        <div class="col-md-6">
+
         <h4>📌 Cantidad de Visitas</h4>
         <canvas id="chartVisitas"></canvas>
+      </div>
+
+        <div class="col-md-6">
+          <h4>👥 Pacientes por Especialidad</h4>
+          <canvas id="chartPacientes"></canvas>
+          <button (click)="descargarGrafico('chartPacientes')" class="btn">Descargar Imagen</button>
+        </div>
+
+        <div class="col-md-6">
+          <h4>🏥 Médicos por Especialidad</h4>
+          <canvas id="chartMedicos"></canvas>
+          <button (click)="descargarGrafico('chartMedicos')" class="btn">Descargar Imagen</button>
+        </div>
       </div>
 
       <!-- Sección de Pacientes -->
@@ -45,17 +60,7 @@
       <!-- Sección de Gráficos -->
       <div *ngIf="activeTab === 'graficos'" class="tab-content">
         <div class="row">
-          <div class="col-md-6">
-            <h4>👥 Pacientes por Especialidad</h4>
-            <canvas id="chartPacientes"></canvas>
-            <button (click)="descargarGrafico('chartPacientes')" class="btn">Descargar Imagen</button>
-          </div>
-  
-          <div class="col-md-6">
-            <h4>🏥 Médicos por Especialidad</h4>
-            <canvas id="chartMedicos"></canvas>
-            <button (click)="descargarGrafico('chartMedicos')" class="btn">Descargar Imagen</button>
-          </div>
+
   
           <div class="col-md-6">
             <h4>📈 Nivel de Satisfacción Promedio</h4>
@@ -70,6 +75,10 @@
           <div class="col-md-6">
             <h4>🌟 Aspectos Más Valorados</h4>
             <canvas id="chartAspectos"></canvas>
+          </div>
+          <div class="col-md-6">
+            <h4>🌟 Estrellas Recibidas</h4>
+            <canvas id="chartestrellas"></canvas>
           </div>
         </div>
       </div>

@@ -2,11 +2,11 @@
   <!-- Caja cuadrada que ocupa toda la pantalla con bordes sutiles y sombras -->
   <div class="card shadow-lg p-4 w-100" style="max-width: 600px; width: 100%; aspect-ratio: 1; border-radius: 15px; border: 1px solid #e0e0e0; background-color: #f9f9f9;">
     <!-- Título principal -->
-    <h2 class="text-center mb-4" style="color: #4A90E2;">Sacar un Turno</h2>
+    <h2 class="text-center mb-4">{{ traducciones[idiomaActual].sacarTurno }}</h2>
 
     <!-- Paso 1: Especialidades -->
     <div *ngIf="!especialidadSeleccionada && especialidades.length > 0" class="mb-4" [@slideInOut] >
-      <h3 class="mb-3" style="color: #4A90E2;">Selecciona una Especialidad</h3>
+      <h3 class="mb-3">{{ traducciones[idiomaActual].seleccionEspecialidad }}</h3>
       <div class="row">
         <div class="col-md-4 mb-3" *ngFor="let especialidad of especialidades">
           <button class="btn especialidad-button w-100" (click)="onEspecialidadChange(especialidad.name)" [ngStyle]="{ 'background-image': 'url(' + especialidad.imagen + ')', 'border-radius': '10px', 'background-color': '#f2f9fc' }">
@@ -18,7 +18,7 @@
 
     <!-- Paso 2: Especialistas -->
     <div *ngIf="especialidadSeleccionada && !especialistaSeleccionado && especialistas.length > 0" class="mb-4" [@slideInOut]>
-      <h3 class="mb-3" style="color: #4A90E2;">Selecciona un Especialista</h3>
+      <h3 class="mb-3">{{ traducciones[idiomaActual].seleccionEspecialista }}</h3>
       <div class="row">
         <div class="col-md-4 mb-3" *ngFor="let especialista of especialistas">
           
@@ -39,7 +39,7 @@
 
     <!-- Paso 3: Fechas disponibles -->
     <div *ngIf="especialistaSeleccionado && !fecha && fechasDisponibles.length > 0" class="mb-4" [@slideInOut]>
-      <h3 class="mb-3" style="color: #4A90E2;">Selecciona una Fecha</h3>
+      <h3 class="mb-3">{{ traducciones[idiomaActual].seleccionFecha }}</h3>
       <div class="row">
         <div class="col-md-3 mb-3" *ngFor="let fecha of fechasDisponibles">
           <button class="btn-custom w-100 p-0 text-white" (click)="onFechaChange(fecha)" style="border-radius: 10px; background-color: #66c2ff;">
@@ -51,7 +51,7 @@
 
     <!-- Paso 4: Horarios disponibles -->
     <div *ngIf="fecha && !horarioSeleccionado && horariosDisponibles.length > 0" class="mb-4" [@slideInOut]>
-      <h3 class="mb-3" style="color: #4A90E2;">Selecciona un Horario</h3>
+      <h3 class="mb-3">{{ traducciones[idiomaActual].seleccionHorario }}</h3>
       <div class="row">
         <div class="col-md-4 mb-3" *ngFor="let horario of horariosDisponibles">
           <button *ngIf="estaOcupado(fecha, especialidadSeleccionada, horario.horaInicio, horario.horaFin, especialistaSeleccionado.nombre)"
@@ -68,7 +68,7 @@
 
     <!-- Confirmación -->
     <div *ngIf="horarioSeleccionado" class="text-center" [@slideInOut] >
-      <h3 class="mb-3" style="color: #4A90E2;">Confirmación</h3>
+      <h3 class="mb-3">{{ traducciones[idiomaActual].confirmacion }}</h3>
       <p style="font-size: 1.1em;">
         Has seleccionado el turno con el especialista 
         <strong>{{ especialistaSeleccionado.nombre }}</strong>

@@ -42,6 +42,8 @@ export class NavbarComponent {
       MIS_TURNOS: "Mis turnos",
       PACIENTES: "Pacientes",
       INFORMES: "Informes",
+      ESTADISTICAS: "Estadisticas",
+
       BIENVENIDO: "Bienvenido",
       MI_PERFIL: "Mi Perfil",
       SALIR: "Salir",
@@ -56,6 +58,8 @@ export class NavbarComponent {
       MIS_TURNOS: "My appointments",
       PACIENTES: "Patients",
       INFORMES: "Reports",
+      ESTADISTICAS: "Statics",
+
       BIENVENIDO: "Welcome",
       MI_PERFIL: "My Profile",
       SALIR: "Logout",
@@ -70,6 +74,8 @@ export class NavbarComponent {
       MIS_TURNOS: "Minhas consultas",
       PACIENTES: "Pacientes",
       INFORMES: "Relatórios",
+      ESTADISTICAS: "Estatísticas",
+
       BIENVENIDO: "Bem-vindo",
       MI_PERFIL: "Meu Perfil",
       SALIR: "Sair",

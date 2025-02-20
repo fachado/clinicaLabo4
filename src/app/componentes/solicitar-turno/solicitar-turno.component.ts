@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { TurnosService } from '../../services/turnos.service';
 import { trigger, group, style, animate, transition, query, animateChild,  } from '@angular/animations';
+import { TranslateService } from '../../translate.service';
 
 interface Horario {
   nombre: string;
@@ -13,7 +14,9 @@ interface Horario {
   horaFin: string; // Ejemplo: "17:00"
   tiempoTurno: number; // Ejemplo: 30 (minutos)
 }
-
+interface Translations {
+  [key: string]: { [key: string]: string };
+}
 @Component({
   selector: 'app-solicitar-turno',
   standalone: true,
@@ -48,11 +51,63 @@ export class SolicitarTurnoComponent implements OnInit {
   pacientes: any[] = []; // Lista de pacientes (para administrador)
   horarioSeleccionado: { horaInicio: string, horaFin: string } | null = null; // Variable para almacenar el horario seleccionado
   fecha: any;
+  idiomaActual: 'es' | 'en' | 'pt' = 'es';
+
+traducciones = {
+  es: {
+    sacarTurno: 'Sacar un Turno',
+    seleccionEspecialidad: 'Selecciona una Especialidad',
+    seleccionEspecialista: 'Selecciona un Especialista',
+    seleccionFecha: 'Selecciona una Fecha',
+    seleccionHorario: 'Selecciona un Horario',
+    confirmacion: 'Confirmación',
+    confirmacionTexto: 'Has seleccionado el turno con el especialista',
+    elDia: 'el día',
+    aLas: 'a las',
+    solicitarTurno: 'Solicitar Turno',
+  },
+  en: {
+    sacarTurno: 'Book an Appointment',
+    seleccionEspecialidad: 'Select a Specialty',
+    seleccionEspecialista: 'Select a Specialist',
+    seleccionFecha: 'Select a Date',
+    seleccionHorario: 'Select a Time Slot',
+    confirmacion: 'Confirmation',
+    confirmacionTexto: 'You have selected an appointment with',
+    elDia: 'on',
+    aLas: 'at',
+    solicitarTurno: 'Request Appointment',
+  },
+  pt: {
+    sacarTurno: 'Agendar uma Consulta',
+    seleccionEspecialidad: 'Selecione uma Especialidade',
+    seleccionEspecialista: 'Selecione um Especialista',
+    seleccionFecha: 'Selecione uma Data',
+    seleccionHorario: 'Selecione um Horário',
+    confirmacion: 'Confirmação',
+    confirmacionTexto: 'Você selecionou uma consulta com',
+    elDia: 'no dia',
+    aLas: 'às',
+    solicitarTurno: 'Solicitar Consulta',
+  }
+};
+
+cambiarIdioma(idioma: 'es' | 'en' | 'pt') {
+  this.idiomaActual = idioma;
+}
+changeLanguage(language: string) {
+  console.log(language);
+  
+  this.translateService.changeLanguage(language);
+}
+
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService ,
-    private turnosService: TurnosService // Servicio para consultar datos
+    private turnosService: TurnosService,
+    private translateService: TranslateService
+    // Servicio para consultar datos
     // Servicio para consultar datos
   ) {
     this.solicitarTurnoForm = this.fb.group({
@@ -126,6 +181,11 @@ export class SolicitarTurnoComponent implements OnInit {
       }
     });
     this.cargarEspecialidades();
+    this.translateService.currentLanguage.subscribe((language: string) => {
+      if (language === 'es' || language === 'en' || language === 'pt') {
+        this.idiomaActual = language;
+      }
+    });
   }
 
   // Cargar especialidades disponibles (con imagen)

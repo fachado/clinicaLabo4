@@ -16,6 +16,8 @@ export class GraficosComponent implements OnInit {
   chartMedicos!: any;
   chartSatisfaccion!: any;
   chartRecomendaciones: any;
+  chartestrellas: any;
+
   chartAspectos!: any;
   encuestas: any[] = [];
   activeTab: string = 'estadisticas'; // La pestaña por defecto
@@ -41,6 +43,7 @@ export class GraficosComponent implements OnInit {
     this.generarGraficoSatisfaccion();
     this.generarGraficoRecomendaciones();
     this.generarGraficoAspectos();
+    this.generarEstrellas();
   });
 }
 setActiveTab(tab: string): void {
@@ -49,11 +52,11 @@ setActiveTab(tab: string): void {
   this.activeTab = tab;
   if (this.activeTab=="estadisticas") {
     this.escucharGraficoVisitas();
-
-  }
-  if (this.activeTab=="graficos") {
     this.escucharGraficoPacientes();
     this.escucharGraficoMedicos();
+  }
+  if (this.activeTab=="graficos") {
+
     this.escucharEncuestas();
     
   }
@@ -113,14 +116,49 @@ setActiveTab(tab: string): void {
 
 
 
+/** 📌 Promedio de "Nivel de Satisfacción" */
+generarEstrellas() {
+  console.log("ENCUESTAS",this.encuestas);
+  
+  const niveles = this.encuestas.map(e => e.estrellas || 0);
+  const promedio = niveles.length 
+  ? niveles.map(Number).reduce((a, b) => a + b, 0) / niveles.length 
+  : 0;
+
+  console.log(niveles);
+  console.log(niveles.reduce((a, b) => a + b, 0));
+  console.log(niveles.length);
+  console.log(promedio);
+    
+  if (this.chartestrellas) {
+    this.chartestrellas.data.datasets[0].data = [promedio];
+    this.chartestrellas.update();
+  } else {
+    this.chartestrellas = new Chart("chartestrellas", {
+      type: 'bar',
+      data: {
+        labels: ['Promedio de estrellas recibidas'],
+        datasets: [{ data: [promedio], backgroundColor: 'pink' }]
+      },
+      options: { scales: { y: { min: 1, max: 5 } } }
+    });
+  }
+}
 
 /** 📌 Promedio de "Nivel de Satisfacción" */
 generarGraficoSatisfaccion() {
   console.log("ENCUESTAS",this.encuestas);
   
   const niveles = this.encuestas.map(e => e.satisfaccion || 0);
-  const promedio = niveles.length ? niveles.reduce((a, b) => a + b, 0) / niveles.length : 0;
+  const promedio = niveles.length 
+  ? niveles.map(Number).reduce((a, b) => a + b, 0) / niveles.length 
+  : 0;
 
+  console.log(niveles);
+  console.log(niveles.reduce((a, b) => a + b, 0));
+  console.log(niveles.length);
+  console.log(promedio);
+    
   if (this.chartSatisfaccion) {
     this.chartSatisfaccion.data.datasets[0].data = [promedio];
     this.chartSatisfaccion.update();
